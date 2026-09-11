@@ -1,71 +1,142 @@
 import { useState, useRef } from 'react';
 import './App.css';
 
-// Official ISL definitions for the 4 letters
-const ISL_SIGNS = {
+// Complete Official Indian Sign Language (ISL) Alphabet Specifications (A to Z)
+const ISL_ALPHABET = {
   A: {
     letter: 'A',
-    title: 'Letter A',
-    icon: '✊',
-    instructions: 'Closed fist with thumb resting upright against index finger.',
-    svg: (
-      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
-        <rect x="25" y="35" width="50" height="45" rx="14" fill="#0284c7" />
-        <rect x="20" y="42" width="16" height="30" rx="8" fill="#38bdf8" />
-        <circle cx="50" cy="55" r="8" fill="#e0f2fe" opacity="0.4" />
-      </svg>
-    )
+    type: 'Vowel (Two-Handed)',
+    image: '/signs/sign_a.jpg',
+    instructions: 'Point the dominant index finger directly to the THUMB TIP of the open non-dominant hand.'
   },
   B: {
     letter: 'B',
-    title: 'Letter B',
-    icon: '✋',
-    instructions: 'All 4 fingers straight UP together, thumb tucked across the palm.',
-    svg: (
-      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
-        <rect x="30" y="15" width="10" height="55" rx="5" fill="#38bdf8" />
-        <rect x="42" y="10" width="10" height="60" rx="5" fill="#38bdf8" />
-        <rect x="54" y="12" width="10" height="58" rx="5" fill="#38bdf8" />
-        <rect x="66" y="20" width="10" height="50" rx="5" fill="#38bdf8" />
-        <rect x="28" y="55" width="50" height="30" rx="10" fill="#0284c7" />
-        <rect x="22" y="52" width="16" height="18" rx="8" fill="#bae6fd" />
-      </svg>
-    )
+    type: 'Consonant (Two-Handed)',
+    image: '/signs/sign_b.jpg',
+    instructions: 'Touch thumbs and curved index fingers of both hands together to form two circular loops (like binoculars / 8).'
   },
   C: {
     letter: 'C',
-    title: 'Letter C',
-    icon: '🤏',
-    instructions: 'Hand curved into an open "C" shape, like holding a round cup.',
-    svg: (
-      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
-        <path d="M65 25 C30 25, 25 75, 65 75" stroke="#38bdf8" strokeWidth="14" strokeLinecap="round" />
-        <circle cx="65" cy="25" r="7" fill="#bae6fd" />
-        <circle cx="65" cy="75" r="7" fill="#bae6fd" />
-      </svg>
-    )
+    type: 'Consonant (One-Handed)',
+    image: '/signs/sign_c.jpg',
+    instructions: 'Curve one hand in front of the chest in a distinct "C" arc, fingers and thumb curved like holding a cup.'
   },
   D: {
     letter: 'D',
-    title: 'Letter D',
-    icon: '☝️',
-    instructions: 'Index finger pointing straight UP, thumb touches middle & ring fingers in a loop.',
-    svg: (
-      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
-        <rect x="40" y="10" width="12" height="60" rx="6" fill="#38bdf8" />
-        <circle cx="58" cy="62" r="18" stroke="#0284c7" strokeWidth="12" />
-        <rect x="35" y="60" width="40" height="28" rx="10" fill="#0369a1" />
-      </svg>
-    )
+    type: 'Consonant (Two-Handed)',
+    image: '/signs/sign_d.jpg',
+    instructions: 'Non-dominant index points straight UP; dominant thumb and index form a curved loop touching it.'
+  },
+  E: {
+    letter: 'E',
+    type: 'Vowel (Two-Handed)',
+    instructions: 'Point the dominant index finger directly to the INDEX FINGER TIP of the open non-dominant hand.'
+  },
+  F: {
+    letter: 'F',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Cross both index fingers over each other to form a cross / plus shape (+).'
+  },
+  G: {
+    letter: 'G',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Place both closed fists stacked directly on top of each other.'
+  },
+  H: {
+    letter: 'H',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Open dominant hand sweeps horizontally across the flat palm of the non-dominant hand.'
+  },
+  I: {
+    letter: 'I',
+    type: 'Vowel (Two-Handed)',
+    instructions: 'Point the dominant index finger directly to the MIDDLE FINGER TIP of the open non-dominant hand.'
+  },
+  J: {
+    letter: 'J',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Trace the curved letter "J" using your dominant index finger onto the open palm of the other hand.'
+  },
+  K: {
+    letter: 'K',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Hook your dominant index finger and place the knuckle against the side of the non-dominant index.'
+  },
+  L: {
+    letter: 'L',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Make an "L" shape with thumb and index of dominant hand, place it flat on the other palm.'
+  },
+  M: {
+    letter: 'M',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Rest 3 fingers (index, middle, ring) of dominant hand flat onto the open non-dominant palm.'
+  },
+  N: {
+    letter: 'N',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Rest 2 fingers (index, middle) of dominant hand flat onto the open non-dominant palm.'
+  },
+  O: {
+    letter: 'O',
+    type: 'Vowel (Two-Handed)',
+    instructions: 'Point the dominant index finger directly to the RING FINGER TIP of the open non-dominant hand.'
+  },
+  P: {
+    letter: 'P',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Dominant index and thumb form a circle touching the tip of the vertical non-dominant index finger.'
+  },
+  Q: {
+    letter: 'Q',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Hook dominant thumb and index into a ring, place it over the base of the non-dominant thumb.'
+  },
+  R: {
+    letter: 'R',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Hook dominant index finger around the straight non-dominant index finger.'
+  },
+  S: {
+    letter: 'S',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Hook the little fingers (pinkies) of both hands tightly together.'
+  },
+  T: {
+    letter: 'T',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Touch the dominant index finger against the edge/side of the flat non-dominant hand.'
+  },
+  U: {
+    letter: 'U',
+    type: 'Vowel (Two-Handed)',
+    instructions: 'Point the dominant index finger directly to the PINKY FINGER TIP of the open non-dominant hand.'
+  },
+  V: {
+    letter: 'V',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Form a "V" (peace sign) with dominant hand and place the tips onto the open non-dominant palm.'
+  },
+  W: {
+    letter: 'W',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Interlace and spread the fingers of both hands together with palms facing inward.'
+  },
+  X: {
+    letter: 'X',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Cross both index fingers in an "X" shape in front of the chest.'
+  },
+  Y: {
+    letter: 'Y',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Place dominant index finger into the "V" groove between the thumb and index of non-dominant hand.'
+  },
+  Z: {
+    letter: 'Z',
+    type: 'Consonant (Two-Handed)',
+    instructions: 'Hold non-dominant hand flat; place dominant fingertips on palm pointing outward like an angled "Z".'
   }
-};
-
-// Spoken word aliases mapping to signs
-const SPEECH_ALIASES = {
-  A: ['A', 'AY', 'HAY', 'EH', 'ALPHA'],
-  B: ['B', 'BE', 'BEE', 'BRAVO'],
-  C: ['C', 'SEE', 'SEA', 'SI', 'CHARLIE'],
-  D: ['D', 'DEE', 'THE', 'DELTA']
 };
 
 function App() {
@@ -76,11 +147,12 @@ function App() {
   const [isVoiceOutputEnabled, setIsVoiceOutputEnabled] = useState(true);
   const [spokenAudioStatus, setSpokenAudioStatus] = useState('');
 
-  // Right Panel State (Voice/Text -> Sign)
-  const [inputText, setInputText] = useState('');
-  const [activeSignKey, setActiveSignKey] = useState(null);
+  // Right Panel State (Voice/Text -> A-Z Signer)
+  const [inputText, setInputText] = useState('HELLO');
+  const [activeSignKey, setActiveSignKey] = useState('B');
   const [isListening, setIsListening] = useState(false);
-  const [voiceStatus, setVoiceStatus] = useState('Click "Start Speaking" or type a letter');
+  const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
+  const [voiceStatus, setVoiceStatus] = useState('Type any word (e.g. INDIA, HELP, HELLO) to animate signs');
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -91,7 +163,6 @@ function App() {
   const lastSpokenLetterRef = useRef('');
   const holdCountRef = useRef(0);
 
-  // Direction 1: Speak detected letter through computer speaker
   const speakDetectedLetter = (letter) => {
     if (!isVoiceOutputEnabled || !('speechSynthesis' in window)) return;
     if (lastSpokenLetterRef.current === letter) return;
@@ -99,13 +170,11 @@ function App() {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(letter);
     utterance.rate = 1.0;
-    utterance.pitch = 1.0;
     window.speechSynthesis.speak(utterance);
     lastSpokenLetterRef.current = letter;
     setSpokenAudioStatus(`🔊 Spoke "${letter}"`);
   };
 
-  // MediaPipe Landmark Classifier for A, B, C, D
   const classifySign = (landmarks) => {
     const thumbTip = landmarks[4];
     const indexTip = landmarks[8];
@@ -184,7 +253,6 @@ function App() {
           setCurrentLetter(result.sign);
           setConfidence(result.conf);
 
-          // Confirm sign stability before speaking
           if (result.sign === lastDetectedSignRef.current) {
             holdCountRef.current += 1;
             if (holdCountRef.current === 12) {
@@ -224,27 +292,25 @@ function App() {
     }
   };
 
-  // Direction 2: Display sign for given letter
   const showSign = (char) => {
     const upper = char.toUpperCase();
-    if (ISL_SIGNS[upper]) {
+    if (ISL_ALPHABET[upper]) {
       setActiveSignKey(upper);
-      setVoiceStatus(`Displaying ISL Sign: "${upper}"`);
-    } else {
-      setVoiceStatus(`Sign for "${char}" not available in v0.1`);
+      setVoiceStatus(`Showing ISL Letter "${upper}" (${ISL_ALPHABET[upper].type})`);
     }
   };
 
-  // Animate word sequence
   const playWord = (word) => {
-    const chars = word.toUpperCase().split('').filter(c => ISL_SIGNS[c]);
+    const chars = word.toUpperCase().split('').filter(c => ISL_ALPHABET[c]);
     if (chars.length === 0) {
-      setVoiceStatus('Please enter A, B, C, or D to animate');
+      setVoiceStatus('Please enter letters (A through Z) to animate');
       return;
     }
     let idx = 0;
-    setVoiceStatus(`Playing Signs: "${chars.join(' - ')}"`);
+    const intervalTime = playbackSpeed === 0.5 ? 2400 : 1500;
+    setVoiceStatus(`Signing Word: "${chars.join(' - ')}"`);
     showSign(chars[0]);
+
     const interval = setInterval(() => {
       idx += 1;
       if (idx < chars.length) {
@@ -252,10 +318,9 @@ function App() {
       } else {
         clearInterval(interval);
       }
-    }, 1500);
+    }, intervalTime);
   };
 
-  // Direction 2: Voice recognition (Microphone -> Sign)
   const toggleSpeechRecognition = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
@@ -276,29 +341,14 @@ function App() {
 
     recognition.onstart = () => {
       setIsListening(true);
-      setVoiceStatus('🎙️ Listening... Speak a letter ("A", "B", "C", "D")');
+      setVoiceStatus('🎙️ Listening... Speak any word or letter');
     };
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript.trim().toUpperCase();
       setInputText(transcript);
-
-      // Match against aliases or letters
-      let matchedLetter = null;
-      for (const [letter, aliases] of Object.entries(SPEECH_ALIASES)) {
-        if (aliases.some(alias => transcript.includes(alias))) {
-          matchedLetter = letter;
-          break;
-        }
-      }
-
-      if (matchedLetter) {
-        setVoiceStatus(`Heard: "${transcript}" ➔ Showing Sign for "${matchedLetter}"`);
-        showSign(matchedLetter);
-      } else {
-        setVoiceStatus(`Heard: "${transcript}"`);
-        playWord(transcript);
-      }
+      setVoiceStatus(`Heard: "${transcript}" ➔ Translating to ISL`);
+      playWord(transcript);
     };
 
     recognition.onerror = (event) => {
@@ -314,16 +364,18 @@ function App() {
     recognition.start();
   };
 
+  const activeSign = ISL_ALPHABET[activeSignKey] || ISL_ALPHABET['B'];
+
   return (
     <div className="app-container">
       <header className="header">
         <h1>🌉 Sign Bridge</h1>
-        <p>Two-Way Indian Sign Language (ISL) Communication Assistant</p>
+        <p>Two-Way Indian Sign Language (ISL) Communication Assistant (A to Z)</p>
       </header>
 
       <div className="dashboard-grid">
         
-        {/* Left Side: Deaf to Hearing (Sign -> Voice) */}
+        {/* Left Side: Deaf to Hearing */}
         <div className="card">
           <div className="card-title">
             <span>🤟</span>
@@ -363,86 +415,100 @@ function App() {
               className="btn"
               style={{ background: isVoiceOutputEnabled ? '#0284c7' : '#475569' }}
               onClick={() => setIsVoiceOutputEnabled(!isVoiceOutputEnabled)}
-              title="Toggle automatic speech when a sign is detected"
+              title="Toggle computer speaking aloud"
             >
               {isVoiceOutputEnabled ? '🔊 Voice: ON' : '🔇 Voice: MUTE'}
             </button>
           </div>
 
-          <div className="output-box" style={{ textAlign: 'center', marginTop: '16px' }}>
-            <div className="output-label">Detected Sign & Voice Status</div>
-            <div style={{ fontSize: '3rem', fontWeight: 'bold', color: '#38bdf8', margin: '6px 0' }}>
+          <div className="output-box" style={{ textAlign: 'center', marginTop: '14px' }}>
+            <div className="output-label">Live Recognized Sign</div>
+            <div style={{ fontSize: '2.8rem', fontWeight: 'bold', color: '#38bdf8', margin: '4px 0' }}>
               {currentLetter !== '-' ? currentLetter : '—'}
             </div>
             <div style={{ color: '#94a3b8', fontSize: '0.85rem' }}>
               {confidence > 0 ? `Confidence: ${confidence}%` : 'Hold a sign in front of the camera'}
             </div>
             {spokenAudioStatus && (
-              <div style={{ color: '#38bdf8', fontSize: '0.85rem', marginTop: '6px', fontWeight: 'bold' }}>
+              <div style={{ color: '#38bdf8', fontSize: '0.85rem', marginTop: '4px', fontWeight: 'bold' }}>
                 {spokenAudioStatus}
               </div>
             )}
           </div>
 
-          <div style={{ marginTop: '14px', background: '#090d16', padding: '10px', borderRadius: '8px', fontSize: '0.82rem', color: '#94a3b8' }}>
-            <strong style={{ color: '#38bdf8' }}>💡 Signs:</strong>
-            <span style={{ marginLeft: '8px' }}>A (Fist) • B (4 Fingers Up) • C (Curved Hand) • D (Index Up)</span>
+          <div style={{ marginTop: '12px', background: '#090d16', padding: '10px', borderRadius: '8px', fontSize: '0.82rem', color: '#94a3b8' }}>
+            <strong style={{ color: '#38bdf8' }}>💡 Core Signs:</strong>
+            <span style={{ marginLeft: '8px' }}>A (Fist) • B (Two Loops) • C (Curved Arc) • D (Vertical Index)</span>
           </div>
         </div>
 
-        {/* Right Side: Hearing to Deaf (Voice ➔ Sign) */}
+        {/* Right Side: Hearing to Deaf (A-Z ISL Visualizer) */}
         <div className="card">
           <div className="card-title">
             <span>🗣️</span>
             <h2>Hearing Person to Deaf Person (Voice ➔ Sign)</h2>
           </div>
 
-          <div className="media-box">
-            {activeSignKey && ISL_SIGNS[activeSignKey] ? (
-              <div className="sign-display">
-                <div className="sign-badge">{activeSignKey}</div>
-                <div style={{ marginBottom: '8px' }}>
-                  {ISL_SIGNS[activeSignKey].svg}
-                </div>
-                <div className="sign-desc">
-                  {ISL_SIGNS[activeSignKey].instructions}
+          <div className="media-box" style={{ padding: 0 }}>
+            {activeSign.image ? (
+              <div className="human-stage">
+                <img
+                  src={activeSign.image}
+                  alt={activeSign.letter}
+                  className="human-image"
+                />
+                <div className="human-overlay">
+                  <span className="human-badge">{activeSign.letter}</span>
+                  <div className="human-text-box">
+                    <strong>{activeSign.type}</strong>
+                    <p>{activeSign.instructions}</p>
+                  </div>
                 </div>
               </div>
             ) : (
-              <div style={{ textAlign: 'center', padding: '20px' }}>
-                <p style={{ fontSize: '2rem', margin: '0 0 10px 0' }}>🎥</p>
-                <p style={{ margin: 0, fontWeight: 'bold' }}>ISL Sign Visualizer</p>
-                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>
-                  Speak or type a letter to see the ISL sign!
-                </span>
+              <div className="avatar-stage">
+                <span className="avatar-badge">{activeSign.letter}</span>
+                <div style={{ fontSize: '3rem', margin: '8px 0' }}>🤟</div>
+                <div className="avatar-label">ISL Letter "{activeSign.letter}" ({activeSign.type})</div>
+                <div className="avatar-instructions" style={{ maxWidth: '85%' }}>
+                  {activeSign.instructions}
+                </div>
               </div>
             )}
           </div>
 
-          {/* Voice Input Button */}
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+          {/* Voice Button & Speed Toggle */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
             <button
               className="btn btn-secondary"
-              style={{ flex: 1, fontSize: '1.05rem' }}
+              style={{ flex: 1, fontSize: '0.95rem' }}
               onClick={toggleSpeechRecognition}
             >
-              {isListening ? '🛑 Stop Listening' : '🎙️ Speak Letter (A, B, C, D)'}
+              {isListening ? '🛑 Stop Listening' : '🎙️ Speak Word (e.g. "INDIA", "HELP")'}
+            </button>
+
+            <button
+              className="quick-btn"
+              onClick={() => setPlaybackSpeed(playbackSpeed === 1.0 ? 0.5 : 1.0)}
+              title="Toggle Slow Motion for sign practice"
+            >
+              Speed: {playbackSpeed}x {playbackSpeed === 0.5 ? '🐢' : '⚡'}
             </button>
           </div>
 
-          {/* Text Input */}
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+          {/* Text Word Input */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
             <input
               type="text"
-              placeholder="Or type letters (e.g. BAD)..."
+              placeholder="Type ANY word (e.g. WATER, HELLO, INDIA)..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && playWord(inputText)}
               style={{
                 flex: 1,
-                padding: '10px 12px',
+                padding: '9px 12px',
                 borderRadius: '8px',
-                border: '1px solid #475569',
+                border: '1px solid #3a506b',
                 background: '#090d16',
                 color: '#f8fafc',
                 fontSize: '0.9rem'
@@ -452,30 +518,32 @@ function App() {
               className="btn"
               onClick={() => playWord(inputText)}
             >
-              Show Sign
+              Animate Word
             </button>
           </div>
 
-          {/* Quick Buttons */}
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Quick Pick:</span>
-            {['A', 'B', 'C', 'D'].map((letter) => (
-              <button
-                key={letter}
-                className="quick-btn"
-                onClick={() => {
-                  setInputText(letter);
-                  showSign(letter);
-                }}
-              >
-                {letter}
-              </button>
-            ))}
+          {/* Full A-Z Quick Bar */}
+          <div style={{ overflowX: 'auto', paddingBottom: '4px' }}>
+            <div style={{ display: 'flex', gap: '5px', minWidth: 'max-content' }}>
+              {Object.keys(ISL_ALPHABET).map((char) => (
+                <button
+                  key={char}
+                  className={`quick-btn ${activeSignKey === char ? 'active-quick-btn' : ''}`}
+                  style={{ padding: '4px 10px', fontSize: '0.85rem' }}
+                  onClick={() => {
+                    setInputText(char);
+                    showSign(char);
+                  }}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="output-box" style={{ marginTop: '16px' }}>
-            <div className="output-label">Voice / Translation Status</div>
-            <div className="output-text" style={{ fontSize: '1.05rem' }}>{voiceStatus}</div>
+          <div className="output-box" style={{ marginTop: '12px' }}>
+            <div className="output-label">Word / Translation Status</div>
+            <div className="output-text" style={{ fontSize: '1rem' }}>{voiceStatus}</div>
           </div>
         </div>
 
