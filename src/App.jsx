@@ -1,215 +1,23 @@
 import { useState, useRef } from 'react';
 import './App.css';
 
-// Authentic Real Human ISL Sign Definitions
-const ISL_ALPHABET = {
-  A: {
-    letter: 'A',
-    type: 'Two-Handed ISL Vowel',
-    image: '/signs/sign_a.jpg',
-    svg: '/signs/sign_a.svg',
-    instructions: 'Dominant index finger points directly to the THUMB TIP of the open non-dominant hand.'
-  },
-  B: {
-    letter: 'B',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_b.jpg',
-    svg: '/signs/sign_b.svg',
-    instructions: 'Touch thumbs and curved index fingers of both hands together to form two circular loops (glasses / 8).'
-  },
-  C: {
-    letter: 'C',
-    type: 'One-Handed ISL Consonant',
-    image: '/signs/sign_c.jpg',
-    svg: '/signs/sign_c.svg',
-    instructions: 'Curve hand in front of the chest in a distinct "C" arc, fingers and thumb curved like holding a cup.'
-  },
-  D: {
-    letter: 'D',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_d.jpg',
-    svg: '/signs/sign_d.svg',
-    instructions: 'Vertical index finger with dominant index and thumb forming a curved loop touching it.'
-  },
-  E: {
-    letter: 'E',
-    type: 'Two-Handed ISL Vowel',
-    image: '/signs/sign_e.jpg',
-    svg: '/signs/sign_e.svg',
-    instructions: 'Point dominant index finger to the INDEX FINGER TIP of the open non-dominant hand.'
-  },
-  F: {
-    letter: 'F',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_f.svg',
-    svg: '/signs/sign_f.svg',
-    instructions: 'Cross both index fingers over each other to form a cross / plus shape (+).'
-  },
-  G: {
-    letter: 'G',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_g.svg',
-    svg: '/signs/sign_g.svg',
-    instructions: 'Place both closed fists stacked vertically one directly on top of the other.'
-  },
-  H: {
-    letter: 'H',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_h.svg',
-    svg: '/signs/sign_h.svg',
-    instructions: 'Open dominant hand sweeps horizontally across the flat open palm of the non-dominant hand.'
-  },
-  I: {
-    letter: 'I',
-    type: 'Two-Handed ISL Vowel',
-    image: '/signs/sign_i.svg',
-    svg: '/signs/sign_i.svg',
-    instructions: 'Point dominant index finger directly to the MIDDLE FINGER TIP of the open non-dominant hand.'
-  },
-  J: {
-    letter: 'J',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_j.svg',
-    svg: '/signs/sign_j.svg',
-    instructions: 'Trace the curved letter "J" using dominant index onto the open palm of the other hand.'
-  },
-  K: {
-    letter: 'K',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_k.svg',
-    svg: '/signs/sign_k.svg',
-    instructions: 'Hook dominant index finger and place knuckle against side of non-dominant vertical index.'
-  },
-  L: {
-    letter: 'L',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_l.svg',
-    svg: '/signs/sign_l.svg',
-    instructions: 'Make an "L" shape with thumb and index of dominant hand, place it flat on the other palm.'
-  },
-  M: {
-    letter: 'M',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_m.svg',
-    svg: '/signs/sign_m.svg',
-    instructions: 'Rest 3 fingers (index, middle, ring) of dominant hand flat downwards onto open non-dominant palm.'
-  },
-  N: {
-    letter: 'N',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_n.svg',
-    svg: '/signs/sign_n.svg',
-    instructions: 'Rest 2 fingers (index, middle) of dominant hand flat downwards onto open non-dominant palm.'
-  },
-  O: {
-    letter: 'O',
-    type: 'Two-Handed ISL Vowel',
-    image: '/signs/sign_o.svg',
-    svg: '/signs/sign_o.svg',
-    instructions: 'Point dominant index finger directly to the RING FINGER TIP of the open non-dominant hand.'
-  },
-  P: {
-    letter: 'P',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_p.svg',
-    svg: '/signs/sign_p.svg',
-    instructions: 'Dominant index and thumb form a circle touching the tip of the vertical non-dominant index.'
-  },
-  Q: {
-    letter: 'Q',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_q.svg',
-    svg: '/signs/sign_q.svg',
-    instructions: 'Hook dominant thumb and index into a ring, place it over the base of the non-dominant thumb.'
-  },
-  R: {
-    letter: 'R',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_r.svg',
-    svg: '/signs/sign_r.svg',
-    instructions: 'Hook dominant index finger around the straight vertical non-dominant index finger.'
-  },
-  S: {
-    letter: 'S',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_s.svg',
-    svg: '/signs/sign_s.svg',
-    instructions: 'Hook the little fingers (pinkies) of both hands tightly interlocked together in front of chest.'
-  },
-  T: {
-    letter: 'T',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_t.svg',
-    svg: '/signs/sign_t.svg',
-    instructions: 'Touch dominant index finger against the lower side edge of the flat non-dominant hand.'
-  },
-  U: {
-    letter: 'U',
-    type: 'Two-Handed ISL Vowel',
-    image: '/signs/sign_u.svg',
-    svg: '/signs/sign_u.svg',
-    instructions: 'Point dominant index finger directly to the PINKY FINGER TIP of the open non-dominant hand.'
-  },
-  V: {
-    letter: 'V',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_v.svg',
-    svg: '/signs/sign_v.svg',
-    instructions: 'Form a "V" (peace sign) with dominant hand and place tips onto the open non-dominant palm.'
-  },
-  W: {
-    letter: 'W',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_w.svg',
-    svg: '/signs/sign_w.svg',
-    instructions: 'Interlace and spread the fingers of both hands together with palms facing inward.'
-  },
-  X: {
-    letter: 'X',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_x.svg',
-    svg: '/signs/sign_x.svg',
-    instructions: 'Cross both index fingers in an "X" shape in front of the chest.'
-  },
-  Y: {
-    letter: 'Y',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_y.svg',
-    svg: '/signs/sign_y.svg',
-    instructions: 'Place dominant index finger into the "V" groove between thumb and index of non-dominant hand.'
-  },
-  Z: {
-    letter: 'Z',
-    type: 'Two-Handed ISL Consonant',
-    image: '/signs/sign_z.svg',
-    svg: '/signs/sign_z.svg',
-    instructions: 'Hold non-dominant hand flat; place dominant fingertips on palm pointing outward like an angled "Z".'
-  }
-};
-
 function App() {
-  // Navigation View State: 'welcome' | 'sign-to-text' | 'text-to-sign'
+  // Navigation View State: 'welcome' | 'sign-to-text'
   const [currentView, setCurrentView] = useState('welcome');
 
-  // Left Panel State (Sign -> Voice & Text)
+  // Sign to Text & Voice Recognition State
   const [currentLetter, setCurrentLetter] = useState('-');
   const [confidence, setConfidence] = useState(0);
   const [isCameraActive, setIsCameraActive] = useState(false);
+  const [isCalibrating, setIsCalibrating] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const [downloadStageText, setDownloadStageText] = useState('ZERO-G SENSOR STANDBY');
   const [isVoiceOutputEnabled, setIsVoiceOutputEnabled] = useState(true);
   const [spokenAudioStatus, setSpokenAudioStatus] = useState('');
-
-  // Right Panel State (Voice/Text -> Real Human Signer)
-  const [inputText, setInputText] = useState('B');
-  const [activeSignKey, setActiveSignKey] = useState('B');
-  const [visualMode, setVisualMode] = useState('photo'); // 'photo' | 'vector'
-  const [isListening, setIsListening] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
-  const [voiceStatus, setVoiceStatus] = useState('Real human demonstrator active');
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const cameraInstance = useRef(null);
-  const speechRecognitionRef = useRef(null);
 
   const lastDetectedSignRef = useRef('');
   const lastSpokenLetterRef = useRef('');
@@ -435,15 +243,43 @@ function App() {
   };
 
   const toggleCamera = () => {
-    if (isCameraActive) {
+    if (isCameraActive || isCalibrating) {
       if (cameraInstance.current) cameraInstance.current.stop();
       setIsCameraActive(false);
+      setIsCalibrating(false);
+      setDownloadProgress(0);
+      setDownloadStageText('ZERO-G SENSOR STANDBY');
       setCurrentLetter('-');
       setConfidence(0);
       setSpokenAudioStatus('');
     } else {
-      startMediaPipe();
-      setIsCameraActive(true);
+      setIsCalibrating(true);
+      setDownloadProgress(10);
+      setDownloadStageText('DOWNLOADING ZERO-G VISION RUNTIME...');
+
+      let currentStep = 10;
+      const interval = setInterval(() => {
+        currentStep += 15;
+        if (currentStep >= 100) {
+          clearInterval(interval);
+          setDownloadProgress(100);
+          setDownloadStageText('ORBITAL TRACKING ENGAGED (60 FPS)');
+          setTimeout(() => {
+            setIsCalibrating(false);
+            setIsCameraActive(true);
+            startMediaPipe();
+          }, 350);
+        } else {
+          setDownloadProgress(currentStep);
+          if (currentStep < 45) {
+            setDownloadStageText('DOWNLOADING ZERO-G VISION RUNTIME (WASM)...');
+          } else if (currentStep < 80) {
+            setDownloadStageText('LEVITATING 42 SKELETAL LANDMARK TENSORS...');
+          } else {
+            setDownloadStageText('CALIBRATING 60 FPS ZERO-G TRACKING...');
+          }
+        }
+      }, 140);
     }
   };
 
@@ -471,8 +307,8 @@ function App() {
       if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
         // Draw 3D skeletal tracking on all detected hands
         for (const landmarks of results.multiHandLandmarks) {
-          window.drawConnectors(canvasCtx, landmarks, window.HAND_CONNECTIONS, { color: '#7c3aed', lineWidth: 3 });
-          window.drawLandmarks(canvasCtx, landmarks, { color: '#38bdf8', lineWidth: 1, radius: 4 });
+          window.drawConnectors(canvasCtx, landmarks, window.HAND_CONNECTIONS, { color: '#00f2fe', lineWidth: 3 });
+          window.drawLandmarks(canvasCtx, landmarks, { color: '#34d399', lineWidth: 1, radius: 4 });
         }
 
         const result = classifyISLSign(results.multiHandLandmarks);
@@ -519,86 +355,6 @@ function App() {
     }
   };
 
-  const showSign = (char) => {
-    const upper = char.toUpperCase();
-    if (ISL_ALPHABET[upper]) {
-      setActiveSignKey(upper);
-      setVoiceStatus(`Demonstrating Sign: "${upper}" — ${ISL_ALPHABET[upper].type}`);
-    }
-  };
-
-  const playWord = (word) => {
-    const chars = word.toUpperCase().split('').filter(c => ISL_ALPHABET[c]);
-    if (chars.length === 0) {
-      setVoiceStatus('Please enter letters (A to Z) to animate');
-      return;
-    }
-    let idx = 0;
-    const intervalTime = playbackSpeed === 0.5 ? 2400 : 1500;
-    setVoiceStatus(`Signing sequence: "${chars.join(' - ')}"`);
-    showSign(chars[0]);
-
-    const interval = setInterval(() => {
-      idx += 1;
-      if (idx < chars.length) {
-        showSign(chars[idx]);
-      } else {
-        clearInterval(interval);
-        setVoiceStatus(`Sequence complete: "${chars.join('')}"`);
-      }
-    }, intervalTime);
-  };
-
-  const toggleSpeechRecognition = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert('Speech Recognition is supported in Chrome/Edge browsers.');
-      return;
-    }
-
-    if (isListening) {
-      if (speechRecognitionRef.current) speechRecognitionRef.current.stop();
-      setIsListening(false);
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-IN';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    recognition.onstart = () => {
-      setIsListening(true);
-      setVoiceStatus('🎙️ Listening... Speak a word or letter');
-    };
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript.trim().toUpperCase();
-      setInputText(transcript);
-      setVoiceStatus(`Heard: "${transcript}" ➔ Showing Real Sign`);
-      playWord(transcript);
-    };
-
-    recognition.onerror = (event) => {
-      setVoiceStatus(`Microphone error: ${event.error}`);
-      setIsListening(false);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    speechRecognitionRef.current = recognition;
-    recognition.start();
-  };
-
-  const activeSign = ISL_ALPHABET[activeSignKey] || ISL_ALPHABET['B'];
-  const hasPhoto = Boolean(activeSign.image && activeSign.image.endsWith('.jpg'));
-  const isDisplayingPhoto = visualMode === 'photo' && hasPhoto;
-  const currentSignSrc = isDisplayingPhoto
-    ? activeSign.image
-    : (activeSign.svg || activeSign.image || `/signs/sign_${activeSign.letter.toLowerCase()}.svg`);
-
   return (
     <div className="app-container">
       {/* Premium Top Navigation Bar */}
@@ -607,11 +363,11 @@ function App() {
           <div className="brand-icon-wrapper">🌉</div>
           <div>
             <h1>Sign Bridge</h1>
-            <p>Two-Way Indian Sign Language (ISL) Assistant</p>
+            <p>Indian Sign Language (ISL) Vision Recognition</p>
           </div>
         </div>
 
-        {/* Navigation Quick Tabs */}
+        {/* Navigation Tabs */}
         <div className="nav-tabs">
           <button
             className={`nav-tab-btn ${currentView === 'welcome' ? 'active-tab' : ''}`}
@@ -625,21 +381,29 @@ function App() {
           >
             🤟 Sign to Text
           </button>
-          <button
-            className={`nav-tab-btn ${currentView === 'text-to-sign' ? 'active-tab' : ''}`}
-            onClick={() => setCurrentView('text-to-sign')}
-          >
-            🗣️ Text to Sign
-          </button>
         </div>
       </header>
 
       {/* VIEW 1: HERO / WELCOME LANDING PORTAL */}
       {currentView === 'welcome' && (
         <div className="welcome-hero">
+          {/* Antigravity Zero-G Visual Showcase */}
+          <div className="antigravity-scene" style={{ width: '160px', height: '160px', marginBottom: '16px' }}>
+            <div className="gyro-ring gyro-ring-1" style={{ width: '130px', height: '130px' }}></div>
+            <div className="gyro-ring gyro-ring-2" style={{ width: '100px', height: '100px' }}></div>
+            <div className="gyro-ring gyro-ring-3" style={{ width: '160px', height: '160px' }}></div>
+            <div className="antigravity-core" style={{ width: '42px', height: '42px' }}></div>
+            <div className="particle-field">
+              <span className="particle" style={{ left: '20%', animationDelay: '0s', animationDuration: '2.4s' }}></span>
+              <span className="particle" style={{ left: '40%', animationDelay: '0.7s', animationDuration: '2.8s' }}></span>
+              <span className="particle" style={{ left: '60%', animationDelay: '1.3s', animationDuration: '2.2s' }}></span>
+              <span className="particle" style={{ left: '80%', animationDelay: '0.4s', animationDuration: '2.6s' }}></span>
+            </div>
+          </div>
+
           <div className="pill-tag">
             <span className="pulsing-dot"></span>
-            ISL Assistive Communication Engine
+            Real-Time Vision Landmark Recognition
           </div>
           
           <h2 className="welcome-title">
@@ -648,37 +412,30 @@ function App() {
           </h2>
 
           <p className="welcome-subtitle">
-            A bidirectional assistive platform closing the communication gap between the Deaf 
-            community and the hearing world through computer vision and authentic Indian Sign Language.
+            An advanced assistive system translating authentic Indian Sign Language (ISL) gestures 
+            directly into on-screen text and real-time speech using 3D skeletal computer vision.
           </p>
 
-          <div className="welcome-cards-grid">
-            {/* Service 1: Sign to Text / Voice */}
-            <div className="welcome-card" onClick={() => setCurrentView('sign-to-text')}>
-              <div className="welcome-card-icon-box">🤟</div>
-              <span className="welcome-card-tag">Gesture Recognition Engine</span>
-              <h3>Sign to Text & Speech</h3>
-              <p>
-                Point your webcam at your hands. Our real-time vision classifier tracks landmarks at 60 FPS 
-                and translates ISL signs directly into on-screen text and spoken audio.
+          <div style={{ maxWidth: '680px', margin: '0 auto 36px', width: '100%' }}>
+            {/* Primary Action Card: Sign to Text / Voice */}
+            <div 
+              className="welcome-card" 
+              onClick={() => setCurrentView('sign-to-text')}
+              style={{ cursor: 'pointer', textAlign: 'center', padding: '36px 32px' }}
+            >
+              <div className="welcome-card-icon-box" style={{ margin: '0 auto 16px' }}>🤟</div>
+              <span className="welcome-card-tag">Bilateral Gesture Recognition Engine</span>
+              <h3 style={{ fontSize: '1.45rem', margin: '10px 0' }}>Real-Time Sign to Text & Speech</h3>
+              <p style={{ maxWidth: '520px', margin: '0 auto 24px', color: 'var(--navy-muted)', fontSize: '0.96rem' }}>
+                Position your hands in front of your camera. Our dual-hand vision engine tracks 42 skeletal joints 
+                at 60 FPS and translates your ISL signs instantly into text and natural voice audio.
               </p>
-              <button className="welcome-action-btn btn-primary">
-                <span>Launch Vision Classifier</span>
-                <span>➔</span>
-              </button>
-            </div>
-
-            {/* Service 2: Text / Voice to Sign */}
-            <div className="welcome-card" onClick={() => setCurrentView('text-to-sign')}>
-              <div className="welcome-card-icon-box">🗣️</div>
-              <span className="welcome-card-tag">Sign Synthesis & Visualizer</span>
-              <h3>Voice & Text to Sign</h3>
-              <p>
-                Speak into your microphone or type sentences. View high-definition, authentic real-human 
-                Indian Sign Language demonstrations with precision playback speed control.
-              </p>
-              <button className="welcome-action-btn btn-secondary">
-                <span>Launch ISL Visualizer</span>
+              <button 
+                className="welcome-action-btn btn-primary"
+                style={{ maxWidth: '320px', margin: '0 auto', padding: '16px 28px', fontSize: '1.05rem' }}
+                onClick={() => setCurrentView('sign-to-text')}
+              >
+                <span>Launch Vision Detector</span>
                 <span>➔</span>
               </button>
             </div>
@@ -686,10 +443,10 @@ function App() {
 
           {/* Institutional Feature Badges */}
           <div className="feature-badges-row">
-            <div className="feature-pill">● Vision Landmark Tracking (60 FPS)</div>
-            <div className="feature-pill">● ISLRTC Standard Corpus</div>
-            <div className="feature-pill">● Bilateral Sign Gesture Engine</div>
-            <div className="feature-pill">● Natural Speech Synthesis</div>
+            <div className="feature-pill">● Dual-Hand 3D Landmark Tracking (60 FPS)</div>
+            <div className="feature-pill">● Official ISLRTC Indian Sign Standard</div>
+            <div className="feature-pill">● Real-Time Natural Speech Synthesis</div>
+            <div className="feature-pill">● Lighting & Skin Tone Invariant</div>
           </div>
         </div>
       )}
@@ -723,12 +480,47 @@ function App() {
                 ></canvas>
 
                 {!isCameraActive && (
-                  <div className="camera-inactive-prompt">
-                    <div className="camera-inactive-icon">📷</div>
-                    <div className="camera-inactive-title">Vision Sensor Offline</div>
-                    <div className="camera-inactive-desc">
-                      Click the button below to initialize your camera and start tracking hand gestures
+                  <div className="camera-inactive-prompt" style={{ width: '100%', maxWidth: '450px', padding: '24px' }}>
+                    <div className="antigravity-scene" style={{ width: '200px', height: '200px', marginBottom: '16px' }}>
+                      <div className="gyro-ring gyro-ring-1"></div>
+                      <div className="gyro-ring gyro-ring-2"></div>
+                      <div className="gyro-ring gyro-ring-3"></div>
+                      <div className="antigravity-core"></div>
+                      <div className="particle-field">
+                        <span className="particle" style={{ left: '16%', animationDelay: '0s', animationDuration: '2.4s' }}></span>
+                        <span className="particle" style={{ left: '32%', animationDelay: '0.6s', animationDuration: '2.8s' }}></span>
+                        <span className="particle" style={{ left: '50%', animationDelay: '1.2s', animationDuration: '2.1s' }}></span>
+                        <span className="particle" style={{ left: '68%', animationDelay: '0.3s', animationDuration: '2.9s' }}></span>
+                        <span className="particle" style={{ left: '84%', animationDelay: '0.9s', animationDuration: '2.5s' }}></span>
+                        <span className="particle" style={{ left: '26%', animationDelay: '1.5s', animationDuration: '2.2s' }}></span>
+                        <span className="particle" style={{ left: '74%', animationDelay: '1.8s', animationDuration: '2.7s' }}></span>
+                      </div>
                     </div>
+
+                    {isCalibrating ? (
+                      <div className="antigravity-download-card" style={{ margin: '0 auto' }}>
+                        <div className="download-status-row">
+                          <span style={{ color: 'var(--cyan-accent)', fontSize: '0.78rem' }}>{downloadStageText}</span>
+                          <span style={{ color: 'var(--cyan-accent)', fontWeight: '800' }}>{downloadProgress}%</span>
+                        </div>
+                        <div className="download-track">
+                          <div className="download-bar" style={{ width: `${downloadProgress}%` }}></div>
+                        </div>
+                        <div className="telemetry-row">
+                          <span className="telemetry-tag">⚡ ANTIGRAVITY ENGINE</span>
+                          <span style={{ fontFamily: 'monospace' }}>WASM • 0.00 G</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="camera-inactive-title" style={{ fontSize: '1.3rem', marginBottom: '6px' }}>
+                          Zero-G Vision Sensor Standby
+                        </div>
+                        <div className="camera-inactive-desc" style={{ maxWidth: '380px', margin: '0 auto', fontSize: '0.88rem' }}>
+                          Click the button below to download the vision runtime and engage 3D skeletal landmark tracking.
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -738,9 +530,16 @@ function App() {
                   className={`welcome-action-btn ${isCameraActive ? 'btn-danger' : 'btn-primary'}`}
                   onClick={toggleCamera}
                   style={{ flex: 1 }}
+                  disabled={isCalibrating}
                 >
-                  <span>{isCameraActive ? '🛑 Disconnect Camera' : '📷 Initialize Camera'}</span>
-                  <span>{isCameraActive ? '✖' : '▶'}</span>
+                  <span>
+                    {isCalibrating
+                      ? '⏳ Downloading Vision Runtime...'
+                      : isCameraActive
+                      ? '🛑 Disconnect Camera'
+                      : '⚡ Initialize Antigravity Vision'}
+                  </span>
+                  <span>{isCameraActive ? '✖' : isCalibrating ? '⋯' : '▶'}</span>
                 </button>
 
                 <button
@@ -748,16 +547,17 @@ function App() {
                   onClick={() => setIsVoiceOutputEnabled(!isVoiceOutputEnabled)}
                   title="Toggle spoken voice synthesis"
                 >
-                  {isVoiceOutputEnabled ? '🔊 Audio: ON' : '🔇 Audio: MUTE'}
+                  {isVoiceOutputEnabled ? '🔊 Audio ON' : '🔇 Audio Muted'}
                 </button>
               </div>
             </div>
 
-            {/* Right Column: Real-Time Recognition & Guidance */}
-            <div className="focused-card" style={{ justifyContent: 'space-between', gap: '16px' }}>
+            {/* Right Column: Live Recognition & Guidance */}
+            <div className="focused-card" style={{ justifyContent: 'space-between' }}>
               <div>
-                <div className="output-box" style={{ textAlign: 'center' }}>
-                  <div className="output-label">Live Recognized ISL Sign</div>
+                <div className="output-box" style={{ textAlign: 'center', padding: '24px 20px' }}>
+                  <div className="output-label">Recognized ISL Gesture</div>
+                  
                   <div className="recognized-letter-display">
                     {currentLetter !== '-' ? currentLetter : '—'}
                   </div>
@@ -771,7 +571,7 @@ function App() {
                   </div>
 
                   {spokenAudioStatus && (
-                    <div style={{ color: 'var(--violet-accent)', fontSize: '0.95rem', marginTop: '10px', fontWeight: '700' }}>
+                    <div style={{ color: 'var(--cyan-accent)', fontSize: '0.95rem', marginTop: '10px', fontWeight: '700' }}>
                       {spokenAudioStatus}
                     </div>
                   )}
@@ -780,200 +580,26 @@ function App() {
                 <div className="guidance-box" style={{ marginTop: '18px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                     <span className="guidance-title" style={{ margin: 0 }}>Active ISLRTC 3D Gesture Index:</span>
-                    <span style={{ fontSize: '0.72rem', background: 'var(--violet-subtle)', color: 'var(--violet-accent)', padding: '2px 8px', borderRadius: '6px', fontWeight: '700' }}>
+                    <span style={{ fontSize: '0.72rem', background: 'var(--cyan-subtle)', color: 'var(--cyan-accent)', padding: '2px 8px', borderRadius: '6px', fontWeight: '700', border: '1px solid var(--cyan-border)' }}>
                       Dual-Hand 60 FPS
                     </span>
                   </div>
-                  <ul className="guidance-list" style={{ maxHeight: '150px', overflowY: 'auto' }}>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>A, E, I, O, U:</strong> Flat base hand + dominant index touches thumb (A), index (E), middle (I), ring (O), pinky (U)</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>B (Two-Handed):</strong> Both hands touch thumbs and index fingertips to form dual circles</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>D (Two-Handed):</strong> Non-dominant vertical index touched by dominant index/thumb loop</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>F (Two-Handed):</strong> Both index fingers crossing into a cross (+)</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>G (Two-Handed):</strong> Two closed fists stacked vertically</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>H (Two-Handed):</strong> Open dominant flat hand sweeping across open base palm</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>S (Two-Handed):</strong> Little fingers (pinkies) hooked and touching</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>X (Two-Handed):</strong> Both index fingers crossed diagonally</li>
-                    <li><strong style={{ color: 'var(--navy-primary)' }}>C, L, V, W, Y:</strong> Single-hand distinct shapes (arc, 90° angle, peace, 3-finger W, shaka)</li>
+                  <ul className="guidance-list" style={{ maxHeight: '180px', overflowY: 'auto' }}>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>A, E, I, O, U:</strong> Flat base hand + dominant index touches thumb (A), index (E), middle (I), ring (O), pinky (U)</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>B (Two-Handed):</strong> Both hands touch thumbs and index fingertips to form dual circles</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>D (Two-Handed):</strong> Non-dominant vertical index touched by dominant index/thumb loop</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>F (Two-Handed):</strong> Both index fingers crossing into a cross (+)</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>G (Two-Handed):</strong> Two closed fists stacked vertically</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>H (Two-Handed):</strong> Open dominant flat hand sweeping across open base palm</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>S (Two-Handed):</strong> Little fingers (pinkies) hooked and touching</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>X (Two-Handed):</strong> Both index fingers crossed diagonally</li>
+                    <li><strong style={{ color: 'var(--cyan-blue)' }}>C, L, V, W, Y:</strong> Single-hand distinct shapes (arc, 90° angle, peace, 3-finger W, shaka)</li>
                   </ul>
                 </div>
               </div>
 
               <div className="tip-callout">
                 💡 <strong>Accuracy Tip:</strong> Position your chest and upper body within 2–3 feet of the camera in a well-lit room for continuous 60 FPS landmark classification.
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* VIEW 3: DEDICATED TEXT TO SIGN CONVERSION */}
-      {currentView === 'text-to-sign' && (
-        <div className="focused-view">
-          <div className="view-header">
-            <button className="back-btn" onClick={() => setCurrentView('welcome')}>
-              <span>⬅️</span>
-              <span>Back to Overview</span>
-            </button>
-            <h2>🗣️ Voice & Text to Sign Mode</h2>
-          </div>
-
-          <div className="workstation-grid">
-            {/* Left Column: Authentic Real-Human Demonstration & ISLRTC Vector Guide */}
-            <div className="focused-card" style={{ padding: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '1.2rem' }}>{isDisplayingPhoto ? '🧑' : '📐'}</span>
-                  <span style={{ fontWeight: '800', color: 'var(--navy-primary)', fontSize: '1.05rem' }}>
-                    {isDisplayingPhoto ? `Real Signer (Letter ${activeSign.letter})` : `ISLRTC Technical Guide (Letter ${activeSign.letter})`}
-                  </span>
-                  {!hasPhoto && visualMode === 'photo' && (
-                    <span style={{ fontSize: '0.72rem', background: 'var(--violet-subtle)', color: 'var(--violet-accent)', padding: '3px 8px', borderRadius: '6px', fontWeight: '700' }}>
-                      Vector Corpus
-                    </span>
-                  )}
-                </div>
-
-                {/* Visual Mode Selector Pill */}
-                <div style={{ display: 'flex', background: 'var(--bg-subtle)', borderRadius: '10px', padding: '3px', border: '1px solid var(--border-subtle)' }}>
-                  <button
-                    type="button"
-                    onClick={() => setVisualMode('photo')}
-                    style={{
-                      border: 'none',
-                      background: visualMode === 'photo' ? 'var(--navy-primary)' : 'transparent',
-                      color: visualMode === 'photo' ? '#ffffff' : 'var(--navy-muted)',
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      fontWeight: '700',
-                      fontSize: '0.8rem',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    🧑 Real Signer
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setVisualMode('vector')}
-                    style={{
-                      border: 'none',
-                      background: visualMode === 'vector' ? 'var(--navy-primary)' : 'transparent',
-                      color: visualMode === 'vector' ? '#ffffff' : 'var(--navy-muted)',
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      fontWeight: '700',
-                      fontSize: '0.8rem',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    📐 ISLRTC Vector (A–Z)
-                  </button>
-                </div>
-              </div>
-
-              <div className="media-box" style={{ padding: 0, height: '100%', minHeight: '520px' }}>
-                <div className="human-stage">
-                  <img
-                    src={currentSignSrc}
-                    alt={`ISL Sign for letter ${activeSign.letter}`}
-                    className="human-image"
-                    style={{
-                      objectFit: isDisplayingPhoto ? 'cover' : 'contain',
-                      objectPosition: isDisplayingPhoto ? 'center 30%' : 'center center'
-                    }}
-                  />
-                  {isDisplayingPhoto && (
-                    <div className="human-overlay">
-                      <span className="human-badge">{activeSign.letter}</span>
-                      <div className="human-text-box">
-                        <strong>{activeSign.type}</strong>
-                        <p>{activeSign.instructions}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Voice/Text Controls & Full A-Z Selector */}
-            <div className="focused-card" style={{ justifyContent: 'space-between' }}>
-              <div>
-                {/* Voice & Speed Controls */}
-                <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
-                  <button
-                    className="welcome-action-btn btn-secondary"
-                    style={{ flex: 1 }}
-                    onClick={toggleSpeechRecognition}
-                  >
-                    <span>{isListening ? '🛑 Stop Listening' : '🎙️ Speak Word / Letter'}</span>
-                    <span>{isListening ? '●' : '🎤'}</span>
-                  </button>
-
-                  <button
-                    className="audio-toggle-btn"
-                    onClick={() => setPlaybackSpeed(playbackSpeed === 1.0 ? 0.5 : 1.0)}
-                    title="Toggle Slow Motion for sign practice"
-                  >
-                    {playbackSpeed}x Speed {playbackSpeed === 0.5 ? '🐢' : '⚡'}
-                  </button>
-                </div>
-
-                {/* Text Word Input */}
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
-                  <input
-                    type="text"
-                    placeholder="Type words or letters to demonstrate (e.g. BAD, CAB)..."
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && playWord(inputText)}
-                    style={{
-                      flex: 1,
-                      padding: '14px 18px',
-                      borderRadius: '10px',
-                      border: '1px solid var(--border-subtle)',
-                      background: 'var(--bg-input)',
-                      color: 'var(--navy-primary)',
-                      fontSize: '1rem',
-                      fontWeight: '500',
-                      outline: 'none'
-                    }}
-                  />
-                  <button
-                    className="btn-primary"
-                    style={{ borderRadius: '10px', padding: '0 24px', fontWeight: '700', border: 'none', cursor: 'pointer' }}
-                    onClick={() => playWord(inputText)}
-                  >
-                    Animate
-                  </button>
-                </div>
-
-                {/* Demonstration Status */}
-                <div className="output-box" style={{ marginBottom: '18px' }}>
-                  <div className="output-label">Visualizer Status</div>
-                  <div className="output-text">{voiceStatus}</div>
-                </div>
-              </div>
-
-              {/* Full A-Z Interactive Selector */}
-              <div>
-                <div style={{ fontSize: '0.82rem', textTransform: 'uppercase', color: 'var(--navy-caption)', fontWeight: '700', letterSpacing: '1px', marginBottom: '10px' }}>
-                  ISL Alphabet Corpus (A–Z)
-                </div>
-                <div className="alphabet-grid">
-                  {Object.keys(ISL_ALPHABET).map((char) => (
-                    <button
-                      key={char}
-                      className={`quick-btn ${activeSignKey === char ? 'active-quick-btn' : ''}`}
-                      onClick={() => {
-                        setInputText(char);
-                        showSign(char);
-                      }}
-                    >
-                      {char}
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
