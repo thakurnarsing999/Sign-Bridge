@@ -22,3 +22,31 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Dataset & Large Files (DO NOT PUSH)
+archive/
+archive.zip
+*.zip
+*.tar
+*.gz
+*process.md 
+Collected_Images/
+dataset*/
+
+# Training Data & Landmark Spreadsheets
+*.csv
+isl_landmarks*.csv
+
+# Model Checkpoints & Python Cache
+*.h5
+*.sav
+*.pkl
+__pycache__/
+*.pyc
+*.pyo
+
+# Local Environment
+.env
+.env.local
+venv/
+.venv/
