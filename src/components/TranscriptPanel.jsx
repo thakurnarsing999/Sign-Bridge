@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import {
-  Copy, Check, Volume2, VolumeX, RotateCcw, Delete, Trash2,
-  Space, Sparkles, MessageSquare, Sliders, HeartHandshake, ChevronDown, ChevronUp
-} from 'lucide-react';
+  Copy,
+  Check,
+  Volume2,
+  VolumeX,
+  RotateCcw,
+  Delete,
+  Trash2,
+  Space,
+  Sparkles,
+  MessageSquare,
+  Sliders,
+  HeartHandshake,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 export default function TranscriptPanel({
   currentLetter,
@@ -39,12 +51,12 @@ export default function TranscriptPanel({
   };
 
   const ASSISTIVE_PHRASES = [
-    { text: 'Hello, nice to meet you.', label: 'Hello' },
-    { text: 'Thank you very much for your help.', label: 'Thank you' },
-    { text: 'Yes, that is correct.', label: 'Yes' },
-    { text: 'No, thank you.', label: 'No' },
-    { text: 'Could you please assist me?', label: 'Need Help' },
-    { text: 'I need to see a doctor or nurse.', label: 'Doctor' },
+    { text: "Hello, nice to meet you.", label: "Hello" },
+    { text: "Thank you very much for your help.", label: "Thank you" },
+    { text: "Yes, that is correct.", label: "Yes" },
+    { text: "No, thank you.", label: "No" },
+    { text: "Could you please assist me?", label: "Need Help" },
+    { text: "I need to see a doctor or nurse.", label: "Doctor" },
   ];
 
   return (
@@ -56,13 +68,13 @@ export default function TranscriptPanel({
             Live Character Recognition
           </span>
           <span className="rounded-md border border-border bg-white px-2 py-0.5 font-mono text-xs font-bold text-primary shadow-2xs">
-            {activeMode === 'alphabets' ? 'A–Z Mode' : '1–9 Mode'}
+            {activeMode === "alphabets" ? "A–Z Mode" : "1–9 Mode"}
           </span>
         </div>
 
         {/* Character Display */}
         <div className="my-1 flex items-center justify-center min-h-[72px]">
-          {currentLetter && currentLetter !== '-' ? (
+          {currentLetter && currentLetter !== "-" ? (
             <div className="flex items-baseline gap-2">
               <span className="text-6xl sm:text-7xl font-black text-primary tracking-tight transition-transform scale-105">
                 {currentLetter}
@@ -75,7 +87,9 @@ export default function TranscriptPanel({
             <div className="flex flex-col items-center justify-center py-2 text-slate-400">
               <span className="text-4xl font-light text-slate-300">—</span>
               <span className="text-xs text-secondary mt-1">
-                {isCameraActive ? 'Hold a sign inside camera frame' : 'Camera is off'}
+                {isCameraActive
+                  ? "Hold a sign inside camera frame"
+                  : "Camera is off"}
               </span>
             </div>
           )}
@@ -86,7 +100,7 @@ export default function TranscriptPanel({
           <div className="flex items-center justify-between text-[11px] text-secondary mb-1">
             <span>Detection Confidence</span>
             <span className="font-semibold text-slate-700">
-              {confidence > 0 ? `${confidence}%` : '0%'}
+              {confidence > 0 ? `${confidence}%` : "0%"}
               <span className="text-slate-400 font-normal ml-1">
                 (Min: {confidenceThreshold}%)
               </span>
@@ -95,7 +109,7 @@ export default function TranscriptPanel({
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
             <div
               className={`h-full rounded-full transition-all duration-150 ${
-                confidence >= confidenceThreshold ? 'bg-teal' : 'bg-slate-400'
+                confidence >= confidenceThreshold ? "bg-teal" : "bg-slate-400"
               }`}
               style={{ width: `${confidence}%` }}
             />
@@ -116,12 +130,17 @@ export default function TranscriptPanel({
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <MessageSquare className="h-4 w-4 text-primary" />
-            <h3 className="text-sm font-bold text-foreground">Sign to Text (Assembled Sentence)</h3>
+            <h3 className="text-sm font-bold text-foreground">
+              Sign to Text (Assembled Sentence)
+            </h3>
           </div>
 
           {/* Auto-space indicator */}
-          {transcript && !transcript.endsWith(' ') && autoSpaceProgress > 0 && (
-            <div className="flex items-center gap-1 text-[11px] text-teal-dark font-medium" title="Auto-spacing after 1.5s pause">
+          {transcript && !transcript.endsWith(" ") && autoSpaceProgress > 0 && (
+            <div
+              className="flex items-center gap-1 text-[11px] text-teal-dark font-medium"
+              title="Auto-spacing after 1.5s pause"
+            >
               <span>Auto-space</span>
               <div className="h-1 w-10 bg-slate-200 rounded-full overflow-hidden">
                 <div
@@ -146,7 +165,8 @@ export default function TranscriptPanel({
             </p>
           ) : (
             <p className="text-slate-400 text-xs sm:text-sm italic select-none">
-              Your recognized signs will appear here and assemble into words. Hold each gesture steadily to build sentences.
+              Your recognized signs will appear here and assemble into words.
+              Hold each gesture steadily to build sentences.
             </p>
           )}
 
@@ -215,12 +235,16 @@ export default function TranscriptPanel({
             disabled={!transcript}
             className={`flex items-center gap-1.5 rounded-xl px-3 py-1 text-xs font-bold transition-all shadow-xs ${
               copyConfirmed
-                ? 'bg-success text-white'
-                : 'border border-border bg-surface text-secondary hover:text-foreground hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none'
+                ? "bg-success text-white"
+                : "border border-border bg-surface text-secondary hover:text-foreground hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none"
             }`}
           >
-            {copyConfirmed ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5 text-primary" />}
-            <span>{copyConfirmed ? 'Copied!' : 'Copy Text'}</span>
+            {copyConfirmed ? (
+              <Check className="h-3.5 w-3.5" />
+            ) : (
+              <Copy className="h-3.5 w-3.5 text-primary" />
+            )}
+            <span>{copyConfirmed ? "Copied!" : "Copy Text"}</span>
           </button>
         </div>
       </div>
@@ -240,13 +264,17 @@ export default function TranscriptPanel({
             onClick={onToggleVoiceOutput}
             className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-semibold transition-all shadow-2xs ${
               isVoiceOutputEnabled
-                ? 'border-teal/40 bg-teal-soft text-teal-dark hover:bg-teal-soft/80'
-                : 'border-border bg-white text-secondary hover:text-foreground'
+                ? "border-teal/40 bg-teal-soft text-teal-dark hover:bg-teal-soft/80"
+                : "border-border bg-white text-secondary hover:text-foreground"
             }`}
             aria-pressed={isVoiceOutputEnabled}
           >
-            {isVoiceOutputEnabled ? <Volume2 className="h-3.5 w-3.5 text-teal" /> : <VolumeX className="h-3.5 w-3.5 text-slate-400" />}
-            <span>{isVoiceOutputEnabled ? 'Voice: ON' : 'Voice: Muted'}</span>
+            {isVoiceOutputEnabled ? (
+              <Volume2 className="h-3.5 w-3.5 text-teal" />
+            ) : (
+              <VolumeX className="h-3.5 w-3.5 text-slate-400" />
+            )}
+            <span>{isVoiceOutputEnabled ? "Voice: ON" : "Voice: Muted"}</span>
           </button>
         </div>
 
@@ -297,7 +325,11 @@ export default function TranscriptPanel({
               <HeartHandshake className="h-3.5 w-3.5 text-teal" />
               <span>Quick Speech Phrases ({ASSISTIVE_PHRASES.length})</span>
             </span>
-            {isSoundboardOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+            {isSoundboardOpen ? (
+              <ChevronUp className="h-3.5 w-3.5" />
+            ) : (
+              <ChevronDown className="h-3.5 w-3.5" />
+            )}
           </button>
 
           {isSoundboardOpen && (
@@ -305,7 +337,9 @@ export default function TranscriptPanel({
               {ASSISTIVE_PHRASES.map((phrase, idx) => (
                 <button
                   key={idx}
-                  onClick={() => speakText(phrase.text, `Spoke: "${phrase.text}"`)}
+                  onClick={() =>
+                    speakText(phrase.text, `Spoke: "${phrase.text}"`)
+                  }
                   className="rounded-lg border border-border bg-white p-2 text-left hover:border-teal hover:bg-teal-soft transition-all group shadow-2xs"
                 >
                   <div className="flex items-center justify-between">

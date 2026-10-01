@@ -1,5 +1,4 @@
-import React from 'react';
-import { Type, Hash } from 'lucide-react';
+import { Type, Hash } from "lucide-react";
 
 export default function ModeSelector({ activeMode, onSelectMode }) {
   return (
@@ -14,12 +13,12 @@ export default function ModeSelector({ activeMode, onSelectMode }) {
       >
         <button
           role="tab"
-          aria-selected={activeMode === 'alphabets'}
-          onClick={() => onSelectMode('alphabets')}
+          aria-selected={activeMode === "alphabets"}
+          onClick={() => onSelectMode("alphabets")}
           className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition-all ${
-            activeMode === 'alphabets'
-              ? 'bg-teal text-white shadow-xs'
-              : 'text-secondary hover:text-foreground hover:bg-white/60'
+            activeMode === "alphabets"
+              ? "bg-teal text-white shadow-xs"
+              : "text-secondary hover:text-foreground hover:bg-white/60"
           }`}
           title="Press 'A' on keyboard to select"
         >
@@ -32,12 +31,12 @@ export default function ModeSelector({ activeMode, onSelectMode }) {
 
         <button
           role="tab"
-          aria-selected={activeMode === 'digits'}
-          onClick={() => onSelectMode('digits')}
+          aria-selected={activeMode === "digits"}
+          onClick={() => onSelectMode("digits")}
           className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition-all ${
-            activeMode === 'digits'
-              ? 'bg-teal text-white shadow-xs'
-              : 'text-secondary hover:text-foreground hover:bg-white/60'
+            activeMode === "digits"
+              ? "bg-teal text-white shadow-xs"
+              : "text-secondary hover:text-foreground hover:bg-white/60"
           }`}
           title="Press 'N' on keyboard to select"
         >

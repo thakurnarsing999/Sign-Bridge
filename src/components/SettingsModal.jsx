@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { X, Sliders, ShieldCheck, Volume2, Camera, Info, RotateCcw } from 'lucide-react';
+import { useEffect } from "react";
+import { X, Sliders, ShieldCheck, Volume2, RotateCcw } from "lucide-react";
 
 export default function SettingsModal({
   isOpen,
@@ -13,12 +13,12 @@ export default function SettingsModal({
   // Close on Escape
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -42,10 +42,15 @@ export default function SettingsModal({
               <Sliders className="h-5 w-5" />
             </div>
             <div>
-              <h2 id="settings-dialog-title" className="text-base font-bold text-foreground">
+              <h2
+                id="settings-dialog-title"
+                className="text-base font-bold text-foreground"
+              >
                 Detection Settings
               </h2>
-              <p className="text-xs text-secondary">Tune sensitivity and speech output</p>
+              <p className="text-xs text-secondary">
+                Tune sensitivity and speech output
+              </p>
             </div>
           </div>
 
@@ -61,7 +66,10 @@ export default function SettingsModal({
         {/* Confidence Threshold Slider (Requirement 11) */}
         <div className="rounded-xl border border-border bg-slate-50/70 p-4 space-y-2.5">
           <div className="flex items-center justify-between">
-            <label htmlFor="confidence-slider" className="text-xs font-bold text-foreground">
+            <label
+              htmlFor="confidence-slider"
+              className="text-xs font-bold text-foreground"
+            >
               Detection Confidence Threshold
             </label>
             <span className="font-mono text-sm font-extrabold text-teal">
@@ -76,7 +84,9 @@ export default function SettingsModal({
             max="85"
             step="1"
             value={confidenceThreshold}
-            onChange={(e) => onChangeConfidenceThreshold(Number(e.target.value))}
+            onChange={(e) =>
+              onChangeConfidenceThreshold(Number(e.target.value))
+            }
             className="w-full accent-teal cursor-pointer h-2 bg-slate-200 rounded-lg"
           />
 
@@ -87,14 +97,19 @@ export default function SettingsModal({
           </div>
 
           <p className="text-[11px] text-secondary leading-relaxed pt-1">
-            Higher values (80–85%) minimize accidental or false letters but require firm hand poses. Lower values (65–70%) make recognition faster in soft room lighting.
+            Higher values (80–85%) minimize accidental or false letters but
+            require firm hand poses. Lower values (65–70%) make recognition
+            faster in soft room lighting.
           </p>
         </div>
 
         {/* Speech Rate Setting */}
         <div className="rounded-xl border border-border bg-slate-50/70 p-4 space-y-2.5">
           <div className="flex items-center justify-between">
-            <label htmlFor="speech-rate-slider" className="text-xs font-bold text-foreground flex items-center gap-1.5">
+            <label
+              htmlFor="speech-rate-slider"
+              className="text-xs font-bold text-foreground flex items-center gap-1.5"
+            >
               <Volume2 className="h-4 w-4 text-primary" />
               <span>Voice Speech Speed</span>
             </label>
@@ -125,7 +140,10 @@ export default function SettingsModal({
         <div className="flex items-start gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 text-xs text-slate-700 leading-relaxed">
           <ShieldCheck className="h-4 w-4 text-success shrink-0 mt-0.5" />
           <span>
-            <strong>100% Client-Side Privacy:</strong> All video frames, camera inputs, and landmarks are processed locally on your device via WebAssembly. Zero video or voice data is ever transmitted to the cloud.
+            <strong>100% Client-Side Privacy:</strong> All video frames, camera
+            inputs, and landmarks are processed locally on your device via
+            WebAssembly. Zero video or voice data is ever transmitted to the
+            cloud.
           </span>
         </div>
 

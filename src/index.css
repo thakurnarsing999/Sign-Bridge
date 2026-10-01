@@ -3,39 +3,41 @@
 /* ── SignBridge Centralized Design System Tokens ── */
 @theme {
   /* Font families */
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Colors — SignBridge High-Contrast Light SaaS Palette */
-  --color-background: #F8FAFC;        /* Very light blue-gray */
-  --color-surface: #FFFFFF;           /* Pure white cards/modals/forms */
-  --color-surface-hover: #F1F5F9;     /* Light slate hover */
-  --color-surface-subtle: #F8FAFC;    /* Subtle inset containers */
-  
-  --color-primary: #2563EB;           /* Deep Blue brand */
-  --color-primary-hover: #1D4ED8;     /* Darker blue hover */
-  --color-primary-soft: #EFF6FF;      /* Very soft blue tint */
-  
-  --color-teal: #14B8A6;              /* Teal secondary accent */
-  --color-teal-hover: #0D9488;        /* Teal hover */
-  --color-teal-soft: #F0FDFA;         /* Soft teal tint */
-  --color-teal-dark: #0F766E;         /* Accessible dark teal for text */
-  
-  --color-foreground: #0F172A;        /* Dark navy primary text */
-  --color-secondary: #475569;         /* Slate gray secondary text */
-  --color-muted: #64748B;             /* Muted metadata text */
-  
-  --color-border: #E2E8F0;            /* Light slate border */
-  --color-border-hover: #CBD5E1;      /* Focused border */
-  
-  --color-success: #16A34A;           /* Connected / success green */
-  --color-success-soft: #DCFCE7;      /* Success soft tint */
-  --color-success-border: #86EFAC;    /* Success border */
-  
-  --color-danger: #DC2626;            /* Error red */
-  --color-danger-soft: #FEE2E2;       /* Error soft tint */
-  --color-danger-hover: #B91C1C;      /* Error hover */
-  --color-danger-border: #FCA5A5;     /* Error border */
+  --color-background: #f8fafc; /* Very light blue-gray */
+  --color-surface: #ffffff; /* Pure white cards/modals/forms */
+  --color-surface-hover: #f1f5f9; /* Light slate hover */
+  --color-surface-subtle: #f8fafc; /* Subtle inset containers */
+
+  --color-primary: #2563eb; /* Deep Blue brand */
+  --color-primary-hover: #1d4ed8; /* Darker blue hover */
+  --color-primary-soft: #eff6ff; /* Very soft blue tint */
+
+  --color-teal: #14b8a6; /* Teal secondary accent */
+  --color-teal-hover: #0d9488; /* Teal hover */
+  --color-teal-soft: #f0fdfa; /* Soft teal tint */
+  --color-teal-dark: #0f766e; /* Accessible dark teal for text */
+
+  --color-foreground: #0f172a; /* Dark navy primary text */
+  --color-secondary: #475569; /* Slate gray secondary text */
+  --color-muted: #64748b; /* Muted metadata text */
+
+  --color-border: #e2e8f0; /* Light slate border */
+  --color-border-hover: #cbd5e1; /* Focused border */
+
+  --color-success: #16a34a; /* Connected / success green */
+  --color-success-soft: #dcfce7; /* Success soft tint */
+  --color-success-border: #86efac; /* Success border */
+
+  --color-danger: #dc2626; /* Error red */
+  --color-danger-soft: #fee2e2; /* Error soft tint */
+  --color-danger-hover: #b91c1c; /* Error hover */
+  --color-danger-border: #fca5a5; /* Error border */
 
   /* Radius */
   --radius-sm: 0.375rem;

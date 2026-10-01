@@ -1,56 +1,64 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import Header from './components/Header';
-import LandingPage from './components/LandingPage';
-import ModeSelector from './components/ModeSelector';
-import CameraPanel from './components/CameraPanel';
-import TranscriptPanel from './components/TranscriptPanel';
-import SpeechToSignPanel from './components/SpeechToSignPanel';
-import ReferenceGuideDrawer from './components/ReferenceGuideDrawer';
-import SettingsModal from './components/SettingsModal';
-import OnboardingModal from './components/OnboardingModal';
-import './App.css';
+import { useState, useRef, useEffect, useCallback } from "react";
+import Header from "./components/Header";
+import LandingPage from "./components/LandingPage";
+import ModeSelector from "./components/ModeSelector";
+import CameraPanel from "./components/CameraPanel";
+import TranscriptPanel from "./components/TranscriptPanel";
+import SpeechToSignPanel from "./components/SpeechToSignPanel";
+import ReferenceGuideDrawer from "./components/ReferenceGuideDrawer";
+import FloatingActions from "./components/FloatingActions";
+import SettingsModal from "./components/SettingsModal";
+import OnboardingModal from "./components/OnboardingModal";
+import "./App.css";
 
 export default function App() {
   // Navigation View: 'home' (Landing Page) | 'studio' (Unified Sign to Text & Speech) | 'two-way'
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => {
+    const hash = window.location.hash.replace("#", "");
+    return ["home", "studio", "two-way"].includes(hash) ? hash : "home";
+  });
+
+  useEffect(() => {
+    window.location.hash = activeTab;
+  }, [activeTab]);
 
   // Input Recognition Mode: 'alphabets' | 'digits'
   const [activeMode, setActiveMode] = useState(() => {
-    return localStorage.getItem('signbridge_mode') || 'alphabets';
+    return localStorage.getItem("signbridge_mode") || "alphabets";
   });
 
   // Camera & Calibration State
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [isCalibrating, setIsCalibrating] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
-  const [downloadStageText, setDownloadStageText] = useState('Camera ready');
-  const [cameraFacingMode, setCameraFacingMode] = useState('user'); // 'user' (front) | 'environment' (rear)
+  const [downloadStageText, setDownloadStageText] = useState("Camera ready");
+  const [cameraFacingMode, setCameraFacingMode] = useState("user"); // 'user' (front) | 'environment' (rear)
 
   // Real-Time Sign Detection State
-  const [currentLetter, setCurrentLetter] = useState('-');
+  const [currentLetter, setCurrentLetter] = useState("-");
   const [confidence, setConfidence] = useState(0);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
 
   // Settings State (Persisted in localStorage)
   const [confidenceThreshold, setConfidenceThreshold] = useState(() => {
-    const saved = localStorage.getItem('signbridge_threshold');
+    const saved = localStorage.getItem("signbridge_threshold");
     return saved ? Number(saved) : 75;
   });
   const [speechRate, setSpeechRate] = useState(() => {
-    const saved = localStorage.getItem('signbridge_speech_rate');
+    const saved = localStorage.getItem("signbridge_speech_rate");
     return saved ? Number(saved) : 1.0;
   });
 
   // Sentence Accumulator & Transcript State
-  const [transcript, setTranscript] = useState('');
+  const [transcript, setTranscript] = useState("");
   const [transcriptHistory, setTranscriptHistory] = useState([]);
-  const [lastAddedLetter, setLastAddedLetter] = useState('');
+  const [lastAddedLetter, setLastAddedLetter] = useState("");
   const [autoSpaceProgress, setAutoSpaceProgress] = useState(0);
 
   // Audio Speech State
   const [isVoiceOutputEnabled, setIsVoiceOutputEnabled] = useState(true);
   const isVoiceOutputEnabledRef = useRef(true);
-  const [spokenAudioStatus, setSpokenAudioStatus] = useState('');
+  const [spokenAudioStatus, setSpokenAudioStatus] = useState("");
 
   // Modals & Drawers State
   const [isGuideOpen, setIsGuideOpen] = useState(false);
@@ -58,7 +66,7 @@ export default function App() {
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
   // Accessibility Live Region Announcement
-  const [announcement, setAnnouncement] = useState('');
+  const [announcement, setAnnouncement] = useState("");
 
   // DOM Refs & Model Refs
   const videoRef = useRef(null);
@@ -67,48 +75,60 @@ export default function App() {
   const modelRef = useRef(null);
 
   // Internal Stable Gesture Tracking Refs
-  const lastDetectedSignRef = useRef('');
-  const lastCommittedSignRef = useRef('');
+  const lastDetectedSignRef = useRef("");
+  const lastCommittedSignRef = useRef("");
   const stableFrameCountRef = useRef(0);
   const silenceTimerRef = useRef(null);
   const autoSpaceIntervalRef = useRef(null);
   const confidenceThresholdRef = useRef(confidenceThreshold);
-  confidenceThresholdRef.current = confidenceThreshold;
+  useEffect(() => {
+    confidenceThresholdRef.current = confidenceThreshold;
+  }, [confidenceThreshold]);
 
   // Persist mode preference
   useEffect(() => {
-    localStorage.setItem('signbridge_mode', activeMode);
+    localStorage.setItem("signbridge_mode", activeMode);
   }, [activeMode]);
 
   // Persist confidence threshold
   const handleUpdateThreshold = (val) => {
     setConfidenceThreshold(val);
-    localStorage.setItem('signbridge_threshold', String(val));
+    localStorage.setItem("signbridge_threshold", String(val));
     setAnnouncement(`Detection threshold updated to ${val}%`);
   };
 
   const handleUpdateSpeechRate = (val) => {
     setSpeechRate(val);
-    localStorage.setItem('signbridge_speech_rate', String(val));
+    localStorage.setItem("signbridge_speech_rate", String(val));
   };
 
   const handleResetDefaults = () => {
     handleUpdateThreshold(75);
     handleUpdateSpeechRate(1.0);
-    setAnnouncement('Settings reset to default values');
+    setAnnouncement("Settings reset to default values");
   };
 
   const announce = (msg) => {
     setAnnouncement(msg);
   };
 
+  const handleSelectMode = useCallback((mode) => {
+    setActiveMode((prev) => {
+      if (prev !== mode) {
+        setIsModelLoaded(false);
+        return mode;
+      }
+      return prev;
+    });
+  }, []);
+
   // Load Neural Network Model (A–Z or 1–9)
   useEffect(() => {
-    setIsModelLoaded(false);
+    let isMounted = true;
     const modelUrl =
-      activeMode === 'alphabets'
-        ? '/model/isl_alphabets_model.json'
-        : '/model/isl_digits_model.json';
+      activeMode === "alphabets"
+        ? "/model/isl_alphabets_model.json"
+        : "/model/isl_digits_model.json";
 
     fetch(modelUrl)
       .then((res) => {
@@ -116,40 +136,51 @@ export default function App() {
         return res.json();
       })
       .then((data) => {
-        modelRef.current = data;
-        setIsModelLoaded(true);
+        if (isMounted) {
+          modelRef.current = data;
+          setIsModelLoaded(true);
+        }
       })
       .catch((err) => {
-        console.error('Failed to load ISL model:', err);
+        console.error("Failed to load ISL model:", err);
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, [activeMode]);
 
   // Web Speech API Voice Output
   const speakText = useCallback(
-    (textToSpeak, label = '') => {
-      if (!isVoiceOutputEnabledRef.current || !('speechSynthesis' in window) || !textToSpeak) return;
+    (textToSpeak, label = "") => {
+      if (
+        !isVoiceOutputEnabledRef.current ||
+        !("speechSynthesis" in window) ||
+        !textToSpeak
+      )
+        return;
 
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.rate = speechRate;
-      utterance.lang = 'en-IN';
+      utterance.lang = "en-IN";
 
       utterance.onend = () => {
-        setTimeout(() => setSpokenAudioStatus(''), 2500);
+        setTimeout(() => setSpokenAudioStatus(""), 2500);
       };
 
       window.speechSynthesis.speak(utterance);
       setSpokenAudioStatus(label || `Spoke: "${textToSpeak}"`);
     },
-    [speechRate]
+    [speechRate],
   );
 
-  const stopSpeaking = () => {
-    if ('speechSynthesis' in window) {
+  const stopSpeaking = useCallback(() => {
+    if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
-    setSpokenAudioStatus('');
-  };
+    setSpokenAudioStatus("");
+  }, []);
 
   const toggleVoiceOutput = () => {
     setIsVoiceOutputEnabled((prev) => {
@@ -158,14 +189,15 @@ export default function App() {
       if (!next) {
         stopSpeaking();
       }
-      announce(next ? 'Voice output enabled' : 'Voice output muted');
+      announce(next ? "Voice output enabled" : "Voice output muted");
       return next;
     });
   };
 
   // Neural Network Forward Pass (< 0.1ms)
   const classifyISLSign = useCallback((multiLandmarks) => {
-    if (!modelRef.current || !multiLandmarks || multiLandmarks.length === 0) return null;
+    if (!modelRef.current || !multiLandmarks || multiLandmarks.length === 0)
+      return null;
 
     const features = [];
     for (let h = 0; h < 2; h++) {
@@ -203,14 +235,14 @@ export default function App() {
         for (let i = 0; i < inDim; i++) {
           sum += current[i] * weights[i][j];
         }
-        if (layer.activation === 'relu') {
+        if (layer.activation === "relu") {
           next[j] = sum > 0 ? sum : 0;
         } else {
           next[j] = sum;
         }
       }
 
-      if (layer.activation === 'softmax') {
+      if (layer.activation === "softmax") {
         let maxVal = -Infinity;
         for (let j = 0; j < outDim; j++) {
           if (next[j] > maxVal) maxVal = next[j];
@@ -254,14 +286,14 @@ export default function App() {
       });
 
       setLastAddedLetter(char);
-      setTimeout(() => setLastAddedLetter(''), 1500);
+      setTimeout(() => setLastAddedLetter(""), 1500);
 
       announce(`Letter ${char} added`);
 
       // Real-time voice speech
       speakText(char, `Spoke "${char}"`);
     },
-    [speakText]
+    [speakText],
   );
 
   // Auto-Space Timer: 1.5s pause without signing adds a space
@@ -284,35 +316,35 @@ export default function App() {
       setAutoSpaceProgress(0);
 
       setTranscript((prev) => {
-        if (prev.length > 0 && !prev.endsWith(' ')) {
+        if (prev.length > 0 && !prev.endsWith(" ")) {
           setTranscriptHistory((hist) => [...hist.slice(-20), prev]);
-          announce('Space added');
-          return prev + ' ';
+          announce("Space added");
+          return prev + " ";
         }
         return prev;
       });
 
-      lastCommittedSignRef.current = '';
+      lastCommittedSignRef.current = "";
     }, duration);
   }, []);
 
-  const handleAddSpace = () => {
+  const handleAddSpace = useCallback(() => {
     setTranscript((prev) => {
-      if (!prev.endsWith(' ')) {
+      if (!prev.endsWith(" ")) {
         setTranscriptHistory((hist) => [...hist.slice(-20), prev]);
-        announce('Space added');
-        return prev + ' ';
+        setAnnouncement("Space added");
+        return prev + " ";
       }
       return prev;
     });
-  };
+  }, []);
 
   const handleBackspace = () => {
     setTranscript((prev) => {
       if (prev.length > 0) {
         setTranscriptHistory((hist) => [...hist.slice(-20), prev]);
         const next = prev.slice(0, -1);
-        announce('Character deleted');
+        announce("Character deleted");
         return next;
       }
       return prev;
@@ -324,23 +356,23 @@ export default function App() {
       const lastState = transcriptHistory[transcriptHistory.length - 1];
       setTranscriptHistory((hist) => hist.slice(0, -1));
       setTranscript(lastState);
-      announce('Undo applied');
+      announce("Undo applied");
     }
   };
 
   const handleClearTranscript = () => {
     if (!transcript) return;
     setTranscriptHistory((hist) => [...hist.slice(-20), transcript]);
-    setTranscript('');
+    setTranscript("");
     stopSpeaking();
-    lastCommittedSignRef.current = '';
-    announce('Transcript cleared');
+    lastCommittedSignRef.current = "";
+    announce("Transcript cleared");
   };
 
   const handleCopyTranscript = () => {
     if (!transcript) return;
     navigator.clipboard.writeText(transcript);
-    announce('Sentence copied to clipboard');
+    announce("Sentence copied to clipboard");
   };
 
   const handleSpeakSentence = () => {
@@ -354,10 +386,11 @@ export default function App() {
     const canvasElement = canvasRef.current;
     if (!videoElement || !canvasElement) return;
 
-    const canvasCtx = canvasElement.getContext('2d');
+    const canvasCtx = canvasElement.getContext("2d");
 
     const hands = new window.Hands({
-      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
+      locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
     });
 
     hands.setOptions({
@@ -370,16 +403,22 @@ export default function App() {
     hands.onResults((results) => {
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-      canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(
+        results.image,
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height,
+      );
 
       if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
         for (const landmarks of results.multiHandLandmarks) {
           window.drawConnectors(canvasCtx, landmarks, window.HAND_CONNECTIONS, {
-            color: '#2563eb',
+            color: "#2563eb",
             lineWidth: 2.2,
           });
           window.drawLandmarks(canvasCtx, landmarks, {
-            color: '#14b8a6',
+            color: "#14b8a6",
             lineWidth: 1,
             radius: 3.5,
           });
@@ -407,23 +446,23 @@ export default function App() {
             stableFrameCountRef.current = 1;
           }
         } else {
-          setCurrentLetter('-');
+          setCurrentLetter("-");
           setConfidence(0);
-          lastDetectedSignRef.current = '';
+          lastDetectedSignRef.current = "";
           stableFrameCountRef.current = 0;
           resetAutoSpaceCountdown();
         }
       } else {
-        setCurrentLetter('-');
+        setCurrentLetter("-");
         setConfidence(0);
-        lastDetectedSignRef.current = '';
+        lastDetectedSignRef.current = "";
         stableFrameCountRef.current = 0;
         resetAutoSpaceCountdown();
       }
       canvasCtx.restore();
     });
 
-    if (typeof window.Camera !== 'undefined') {
+    if (typeof window.Camera !== "undefined") {
       const camera = new window.Camera(videoElement, {
         onFrame: async () => {
           await hands.send({ image: videoElement });
@@ -435,27 +474,32 @@ export default function App() {
       camera.start();
       cameraInstance.current = camera;
     }
-  }, [cameraFacingMode, classifyISLSign, commitCharacterToTranscript, resetAutoSpaceCountdown]);
+  }, [
+    cameraFacingMode,
+    classifyISLSign,
+    commitCharacterToTranscript,
+    resetAutoSpaceCountdown,
+  ]);
 
   // Toggle Camera
-  const toggleCamera = () => {
+  const toggleCamera = useCallback(() => {
     if (isCameraActive || isCalibrating) {
       if (cameraInstance.current) cameraInstance.current.stop();
       stopSpeaking();
       setIsCameraActive(false);
       setIsCalibrating(false);
       setDownloadProgress(0);
-      setDownloadStageText('Camera ready');
-      setCurrentLetter('-');
+      setDownloadStageText("Camera ready");
+      setCurrentLetter("-");
       setConfidence(0);
-      lastDetectedSignRef.current = '';
-      lastCommittedSignRef.current = '';
+      lastDetectedSignRef.current = "";
+      lastCommittedSignRef.current = "";
       stableFrameCountRef.current = 0;
-      announce('Camera disabled');
+      setAnnouncement("Camera disabled");
     } else {
       setIsCalibrating(true);
       setDownloadProgress(15);
-      setDownloadStageText('Initializing camera stream...');
+      setDownloadStageText("Initializing camera stream...");
 
       let step = 15;
       const interval = setInterval(() => {
@@ -463,29 +507,31 @@ export default function App() {
         if (step >= 100) {
           clearInterval(interval);
           setDownloadProgress(100);
-          setDownloadStageText('Vision tracking active');
+          setDownloadStageText("Vision tracking active");
           setTimeout(() => {
             setIsCalibrating(false);
             setIsCameraActive(true);
             startMediaPipe();
-            announce('Camera connected and live');
+            setAnnouncement("Camera connected and live");
           }, 250);
         } else {
           setDownloadProgress(step);
           if (step < 60) {
-            setDownloadStageText('Calibrating landmark sensors...');
+            setDownloadStageText("Calibrating landmark sensors...");
           } else {
-            setDownloadStageText('Starting 60 FPS video capture...');
+            setDownloadStageText("Starting 60 FPS video capture...");
           }
         }
       }, 100);
     }
-  };
+  }, [isCameraActive, isCalibrating, startMediaPipe, stopSpeaking]);
 
   const flipCamera = () => {
-    const nextMode = cameraFacingMode === 'user' ? 'environment' : 'user';
+    const nextMode = cameraFacingMode === "user" ? "environment" : "user";
     setCameraFacingMode(nextMode);
-    announce(`Switched to ${nextMode === 'user' ? 'front' : 'rear'} camera`);
+    setAnnouncement(
+      `Switched to ${nextMode === "user" ? "front" : "rear"} camera`,
+    );
 
     if (isCameraActive && cameraInstance.current) {
       cameraInstance.current.stop();
@@ -496,27 +542,27 @@ export default function App() {
   // Keyboard Shortcuts Listener
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
 
-      if (e.key === 'a' || e.key === 'A') {
-        setActiveMode('alphabets');
-        announce('Switched to Alphabet Mode');
-      } else if (e.key === 'n' || e.key === 'N') {
-        setActiveMode('digits');
-        announce('Switched to Number Mode');
-      } else if (e.key === 'c' || e.key === 'C') {
+      if (e.key === "a" || e.key === "A") {
+        handleSelectMode("alphabets");
+        setAnnouncement("Switched to Alphabet Mode");
+      } else if (e.key === "n" || e.key === "N") {
+        handleSelectMode("digits");
+        setAnnouncement("Switched to Number Mode");
+      } else if (e.key === "c" || e.key === "C") {
         toggleCamera();
-      } else if (e.key === ' ' || e.code === 'Space') {
+      } else if (e.key === " " || e.code === "Space") {
         e.preventDefault();
         handleAddSpace();
-      } else if (e.key === '?') {
+      } else if (e.key === "?") {
         setIsOnboardingOpen((o) => !o);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleCamera]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [toggleCamera, handleAddSpace, handleSelectMode]);
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-teal-soft selection:text-teal-dark">
@@ -526,43 +572,43 @@ export default function App() {
       </div>
 
       {/* Top Navbar */}
-      <Header
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        onOpenGuide={() => setIsGuideOpen(true)}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onOpenOnboarding={() => setIsOnboardingOpen(true)}
-      />
+      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Container */}
-      <main className="flex-1">
+      <main className="flex-1 pb-24 sm:pb-12">
         <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-6">
           {/* 1. LANDING PAGE / HOME */}
-          {activeTab === 'home' && (
+          {activeTab === "home" && (
             <LandingPage onNavigate={(tab) => setActiveTab(tab)} />
           )}
 
           {/* 2. UNIFIED SIGN TO TEXT & SIGN TO SPEECH STUDIO */}
-          {activeTab === 'studio' && (
+          {activeTab === "studio" && (
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-surface border border-border rounded-xl p-3 px-4 shadow-2xs">
                 <ModeSelector
                   activeMode={activeMode}
                   onSelectMode={(mode) => {
-                    setActiveMode(mode);
-                    setCurrentLetter('-');
+                    handleSelectMode(mode);
+                    setCurrentLetter("-");
                     setConfidence(0);
-                    lastCommittedSignRef.current = '';
+                    lastCommittedSignRef.current = "";
                   }}
                 />
 
                 <div className="flex items-center gap-3 text-xs text-secondary font-medium">
                   <span className="hidden sm:inline">
-                    Status: <strong className="text-teal font-semibold">{isModelLoaded ? 'Model Ready' : 'Loading...'}</strong>
+                    Status:{" "}
+                    <strong className="text-teal font-semibold">
+                      {isModelLoaded ? "Model Ready" : "Loading..."}
+                    </strong>
                   </span>
                   <span className="text-slate-300">|</span>
                   <span>
-                    Output: <strong className="text-foreground">Text &amp; Voice Enabled</strong>
+                    Output:{" "}
+                    <strong className="text-foreground">
+                      Text &amp; Voice Enabled
+                    </strong>
                   </span>
                 </div>
               </div>
@@ -615,7 +661,7 @@ export default function App() {
           )}
 
           {/* 3. SPEECH TO SIGN (Two-Way Communication Preview) */}
-          {activeTab === 'two-way' && <SpeechToSignPanel />}
+          {activeTab === "two-way" && <SpeechToSignPanel />}
         </div>
       </main>
 
@@ -626,7 +672,7 @@ export default function App() {
         currentLetter={currentLetter}
         onPracticeSign={() => {
           setIsGuideOpen(false);
-          setActiveTab('studio');
+          setActiveTab("studio");
         }}
       />
 
@@ -645,6 +691,13 @@ export default function App() {
       <OnboardingModal
         isOpen={isOnboardingOpen}
         onClose={() => setIsOnboardingOpen(false)}
+      />
+
+      {/* Floating Action Controls (Guide, Help, Settings - moves with screen at bottom right) */}
+      <FloatingActions
+        onOpenGuide={() => setIsGuideOpen(true)}
+        onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenOnboarding={() => setIsOnboardingOpen(true)}
       />
     </div>
   );

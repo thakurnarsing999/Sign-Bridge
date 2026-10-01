@@ -1,5 +1,4 @@
-import React from 'react';
-import { MessageSquare, Clock } from 'lucide-react';
+import { MessageSquare, Clock } from "lucide-react";
 
 export default function SpeechToSignPanel() {
   return (
@@ -12,7 +11,9 @@ export default function SpeechToSignPanel() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-foreground">Speech to Sign</h2>
+              <h2 className="text-base font-bold text-foreground">
+                Speech to Sign
+              </h2>
               <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-2.5 py-0.5 text-[11px] font-bold text-amber-700">
                 <Clock className="h-3 w-3" />
                 In Progress
@@ -32,7 +33,8 @@ export default function SpeechToSignPanel() {
         </div>
         <h3 className="text-sm font-bold text-foreground">In Progress</h3>
         <p className="text-xs text-secondary mt-1 max-w-sm">
-          This section is kept clean and blank, ready for your custom speech-to-sign implementation.
+          This section is kept clean and blank, ready for your custom
+          speech-to-sign implementation.
         </p>
       </div>
     </div>

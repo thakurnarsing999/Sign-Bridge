@@ -1,8 +1,12 @@
-import React from 'react';
 import {
-  ScanLine, Volume2, ArrowRight, ShieldCheck, Zap, Hand, MessageSquare,
-  Sparkles, Layers, CheckCircle2, ChevronRight
-} from 'lucide-react';
+  ScanLine,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  Hand,
+  MessageSquare,
+  CheckCircle2,
+} from "lucide-react";
 
 export default function LandingPage({ onNavigate }) {
   return (
@@ -24,13 +28,16 @@ export default function LandingPage({ onNavigate }) {
 
         {/* Hero Subtitle */}
         <p className="mt-5 max-w-2xl mx-auto text-sm sm:text-lg text-secondary leading-relaxed font-normal">
-          SignBridge translates Indian Sign Language gestures into both <strong>real-time text</strong> and <strong>natural spoken audio</strong> in a single, unified communication workspace.
+          SignBridge translates Indian Sign Language gestures into both{" "}
+          <strong>real-time text</strong> and{" "}
+          <strong>natural spoken audio</strong> in a single, unified
+          communication workspace.
         </p>
 
         {/* Primary Action Buttons */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
           <button
-            onClick={() => onNavigate('studio')}
+            onClick={() => onNavigate("studio")}
             className="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-sm sm:text-base font-bold text-white shadow-md hover:bg-primary-hover hover:shadow-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <ScanLine className="h-5 w-5" />
@@ -39,7 +46,7 @@ export default function LandingPage({ onNavigate }) {
           </button>
 
           <button
-            onClick={() => onNavigate('two-way')}
+            onClick={() => onNavigate("two-way")}
             className="inline-flex items-center gap-2 rounded-xl border border-teal/40 bg-teal-soft px-6 py-3.5 text-sm sm:text-base font-bold text-teal-dark shadow-xs hover:bg-teal/15 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
           >
             <MessageSquare className="h-5 w-5 text-teal" />
@@ -67,7 +74,7 @@ export default function LandingPage({ onNavigate }) {
       {/* ── Unified Solution Highlight Banner ── */}
       <section className="max-w-4xl mx-auto px-4">
         <div
-          onClick={() => onNavigate('studio')}
+          onClick={() => onNavigate("studio")}
           className="group cursor-pointer rounded-3xl border border-border bg-gradient-to-br from-white via-slate-50 to-teal-soft/30 p-7 sm:p-10 shadow-xs hover:shadow-md hover:border-primary/40 transition-all text-left relative overflow-hidden"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -92,21 +99,33 @@ export default function LandingPage({ onNavigate }) {
           </div>
 
           <p className="text-sm sm:text-base text-secondary leading-relaxed font-normal">
-            No need to switch between screens. The unified studio runs 3D landmark tracking on your camera feed and simultaneously updates the <strong>live on-screen transcript</strong> while speaking each recognized gesture aloud with <strong>natural voice audio</strong>.
+            No need to switch between screens. The unified studio runs 3D
+            landmark tracking on your camera feed and simultaneously updates the{" "}
+            <strong>live on-screen transcript</strong> while speaking each
+            recognized gesture aloud with <strong>natural voice audio</strong>.
           </p>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-secondary font-medium">
             <div className="rounded-xl border border-slate-200/90 bg-white p-3 flex items-start gap-2 shadow-2xs">
               <CheckCircle2 className="h-4 w-4 text-teal shrink-0 mt-0.5" />
-              <span><strong>Sentence Builder:</strong> Assembles letters into words with 1.5s auto-space</span>
+              <span>
+                <strong>Sentence Builder:</strong> Assembles letters into words
+                with 1.5s auto-space
+              </span>
             </div>
             <div className="rounded-xl border border-slate-200/90 bg-white p-3 flex items-start gap-2 shadow-2xs">
               <CheckCircle2 className="h-4 w-4 text-teal shrink-0 mt-0.5" />
-              <span><strong>Voice Output:</strong> Reads signs and full sentences aloud with speed tuning</span>
+              <span>
+                <strong>Voice Output:</strong> Reads signs and full sentences
+                aloud with speed tuning
+              </span>
             </div>
             <div className="rounded-xl border border-slate-200/90 bg-white p-3 flex items-start gap-2 shadow-2xs">
               <CheckCircle2 className="h-4 w-4 text-teal shrink-0 mt-0.5" />
-              <span><strong>Quick Soundboard:</strong> Instant one-tap speech for everyday phrases</span>
+              <span>
+                <strong>Quick Soundboard:</strong> Instant one-tap speech for
+                everyday phrases
+              </span>
             </div>
           </div>
         </div>
@@ -123,9 +142,12 @@ export default function LandingPage({ onNavigate }) {
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white border border-slate-200 text-primary font-black text-sm shadow-xs mb-3">
               1
             </div>
-            <h4 className="text-xs sm:text-sm font-bold text-foreground">Sign to Camera</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-foreground">
+              Sign to Camera
+            </h4>
             <p className="text-[11px] sm:text-xs text-secondary mt-1">
-              Position both hands in front of your device camera with front lighting.
+              Position both hands in front of your device camera with front
+              lighting.
             </p>
           </div>
 
@@ -133,9 +155,12 @@ export default function LandingPage({ onNavigate }) {
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white border border-slate-200 text-teal font-black text-sm shadow-xs mb-3">
               2
             </div>
-            <h4 className="text-xs sm:text-sm font-bold text-foreground">3D Vision Tracking</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-foreground">
+              3D Vision Tracking
+            </h4>
             <p className="text-[11px] sm:text-xs text-secondary mt-1">
-              MediaPipe extracts 42 skeletal joints and classifies the ISL pose in &lt; 0.1ms.
+              MediaPipe extracts 42 skeletal joints and classifies the ISL pose
+              in &lt; 0.1ms.
             </p>
           </div>
 
@@ -143,9 +168,12 @@ export default function LandingPage({ onNavigate }) {
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white border border-slate-200 text-success font-black text-sm shadow-xs mb-3">
               3
             </div>
-            <h4 className="text-xs sm:text-sm font-bold text-foreground">Text &amp; Voice Output</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-foreground">
+              Text &amp; Voice Output
+            </h4>
             <p className="text-[11px] sm:text-xs text-secondary mt-1">
-              Characters assemble into sentences and are spoken aloud in real time.
+              Characters assemble into sentences and are spoken aloud in real
+              time.
             </p>
           </div>
         </div>

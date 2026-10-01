@@ -1,17 +1,33 @@
 /* ── Keyframe Animations ── */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.85); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
 }
 
 @keyframes soundwave {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
 @keyframes sweep {
-  0% { transform: translateX(-150%); }
-  100% { transform: translateX(350%); }
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
 }
 
 /* ── Live indicator ── */
@@ -26,22 +42,27 @@
 
 /* ── Progress bar sweep ── */
 .progress-sweep::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
   width: 40%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
   animation: sweep 1.4s ease-in-out infinite;
 }
 
 /* ── SignBridge Reference Gradient (135deg, #2563EB, #14B8A6) ── */
 .bg-brand-gradient {
-  background: linear-gradient(135deg, #2563EB, #14B8A6);
+  background: linear-gradient(135deg, #2563eb, #14b8a6);
 }
 
 .text-brand-gradient {
-  background: linear-gradient(135deg, #2563EB, #14B8A6);
+  background: linear-gradient(135deg, #2563eb, #14b8a6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
