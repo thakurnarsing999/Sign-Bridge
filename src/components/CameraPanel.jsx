@@ -83,11 +83,11 @@ export default function CameraPanel({
 
       {/* Viewport Container — Elongated spacious camera monitor */}
       <div className="relative flex w-full h-[360px] xs:h-[400px] sm:h-[460px] lg:h-[520px] items-center justify-center overflow-hidden rounded-2xl border border-border bg-slate-950 shadow-inner">
-        {/* Subtle recommended hand positioning guide frame overlay */}
+        {/* Subtle recommended hand positioning guide frame overlay — appears for ~2.5s then disappears */}
         {isCameraActive && (
-          <div className="pointer-events-none absolute inset-4 sm:inset-6 z-10 flex items-center justify-center">
-            <div className="w-full h-full border-2 border-dashed border-teal/25 rounded-2xl flex items-center justify-center">
-              <span className="text-[11px] font-medium text-teal/40 bg-slate-900/60 px-3 py-1 rounded-full backdrop-blur-xs">
+          <div className="zone-guide-transient pointer-events-none absolute inset-4 sm:inset-6 z-10 flex items-center justify-center">
+            <div className="w-full h-full border-2 border-dashed border-teal/30 rounded-2xl flex items-center justify-center">
+              <span className="text-[11px] font-medium text-teal-200 bg-slate-900/80 px-3.5 py-1.5 rounded-full backdrop-blur-xs shadow-md border border-teal/20">
                 Keep hands inside this zone
               </span>
             </div>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { BookOpen, Settings, HelpCircle, Menu, X } from "lucide-react";
+import { BookOpen, Settings, HelpCircle, LayoutGrid, X } from "lucide-react";
 
 export default function FloatingActions({
   onOpenGuide,
@@ -120,7 +120,7 @@ export default function FloatingActions({
         {isOpen ? (
           <X className="h-5 w-5 transition-transform duration-200" />
         ) : (
-          <Menu className="h-5 w-5 transition-transform duration-200" />
+          <LayoutGrid className="h-5 w-5 transition-transform duration-200" />
         )}
       </button>
     </aside>

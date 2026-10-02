@@ -82,3 +82,26 @@
 .custom-scroll::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* ── Transient Hand Positioning Guide Fade (Appears for ~2.5s then disappears) ── */
+@keyframes zone-guide-fade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.97);
+    visibility: hidden;
+  }
+}
+
+.zone-guide-transient {
+  animation: zone-guide-fade 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
