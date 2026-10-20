@@ -74,7 +74,7 @@ export default function CameraPanel({
             LIVE
           </span>
         ) : (
-          <span className="flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 border border-slate-200">
+          <span className="flex items-center gap-1.5 rounded-full bg-surface-subtle px-2.5 py-0.5 text-xs font-medium text-secondary border border-border">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-slate-400" />
             Offline
           </span>
@@ -207,7 +207,7 @@ export default function CameraPanel({
         {/* Rotate to Landscape Button (Mobile/Tablet Friendly) */}
         <button
           onClick={handleLandscapeRequest}
-          className="flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2.5 text-xs sm:text-sm font-semibold text-secondary hover:text-foreground hover:bg-slate-50 transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2.5 text-xs sm:text-sm font-semibold text-secondary hover:text-foreground hover:bg-surface-hover transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           title="Switch to full landscape orientation"
           aria-label="Rotate screen to landscape"
         >
@@ -218,7 +218,7 @@ export default function CameraPanel({
         {/* Camera Flip Button (Front vs Rear Camera) */}
         <button
           onClick={onFlipCamera}
-          className="flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2.5 text-xs sm:text-sm font-semibold text-secondary hover:text-foreground hover:bg-slate-50 transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2.5 text-xs sm:text-sm font-semibold text-secondary hover:text-foreground hover:bg-surface-hover transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           title={`Currently using ${cameraFacingMode === "user" ? "Front camera" : "Rear camera"}. Click to flip.`}
           aria-label="Flip camera between front and rear"
         >
@@ -229,11 +229,11 @@ export default function CameraPanel({
 
       {/* Helpful Lighting & Hand Position Tips */}
       <div className="mt-3.5 grid grid-cols-2 gap-2 text-[11px] text-secondary">
-        <div className="flex items-center gap-2 rounded-lg bg-slate-50 border border-slate-200/80 p-2">
+        <div className="flex items-center gap-2 rounded-lg bg-surface-subtle border border-border p-2">
           <Sun className="h-3.5 w-3.5 text-amber-500 shrink-0" />
           <span>Use clear front lighting</span>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-slate-50 border border-slate-200/80 p-2">
+        <div className="flex items-center gap-2 rounded-lg bg-surface-subtle border border-border p-2">
           <Hand className="h-3.5 w-3.5 text-teal shrink-0" />
           <span>Keep both hands visible</span>
         </div>

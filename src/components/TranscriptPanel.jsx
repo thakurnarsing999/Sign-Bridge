@@ -62,12 +62,12 @@ export default function TranscriptPanel({
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-4 sm:p-5 shadow-xs">
       {/* ── 1. Live Character Recognition Header ── */}
-      <div className="rounded-xl border border-border bg-slate-50 p-4 text-center relative overflow-hidden">
+      <div className="rounded-xl border border-border bg-surface-subtle p-4 text-center relative overflow-hidden">
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs font-bold uppercase tracking-wider text-secondary">
             Live Character Recognition
           </span>
-          <span className="rounded-md border border-border bg-white px-2 py-0.5 font-mono text-xs font-bold text-primary shadow-2xs">
+          <span className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-xs font-bold text-primary shadow-2xs">
             {activeMode === "alphabets" ? "A–Z Mode" : "1–9 Mode"}
           </span>
         </div>
@@ -84,8 +84,8 @@ export default function TranscriptPanel({
               </span>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-2 text-slate-400">
-              <span className="text-4xl font-light text-slate-300">—</span>
+            <div className="flex flex-col items-center justify-center py-2 text-muted">
+              <span className="text-4xl font-light text-muted">—</span>
               <span className="text-xs text-secondary mt-1">
                 {isCameraActive
                   ? "Hold a sign inside camera frame"
@@ -99,17 +99,17 @@ export default function TranscriptPanel({
         <div className="mt-1">
           <div className="flex items-center justify-between text-[11px] text-secondary mb-1">
             <span>Detection Confidence</span>
-            <span className="font-semibold text-slate-700">
+            <span className="font-semibold text-foreground">
               {confidence > 0 ? `${confidence}%` : "0%"}
-              <span className="text-slate-400 font-normal ml-1">
+              <span className="text-muted font-normal ml-1">
                 (Min: {confidenceThreshold}%)
               </span>
             </span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-border">
             <div
               className={`h-full rounded-full transition-all duration-150 ${
-                confidence >= confidenceThreshold ? "bg-teal" : "bg-slate-400"
+                confidence >= confidenceThreshold ? "bg-teal" : "bg-muted"
               }`}
               style={{ width: `${confidence}%` }}
             />
@@ -142,7 +142,7 @@ export default function TranscriptPanel({
               title="Auto-spacing after 1.5s pause"
             >
               <span>Auto-space</span>
-              <div className="h-1 w-10 bg-slate-200 rounded-full overflow-hidden">
+              <div className="h-1 w-10 bg-border rounded-full overflow-hidden">
                 <div
                   className="h-full bg-teal rounded-full transition-all duration-100"
                   style={{ width: `${autoSpaceProgress}%` }}
@@ -155,7 +155,7 @@ export default function TranscriptPanel({
         {/* Assembled Text Box */}
         <div
           tabIndex={0}
-          className="relative min-h-[100px] sm:min-h-[115px] rounded-xl border border-border bg-slate-50/70 p-3.5 sm:p-4 text-sm sm:text-base leading-relaxed font-medium transition-all focus-within:border-primary/50 focus-within:bg-white shadow-inner flex flex-col justify-between"
+          className="relative min-h-[100px] sm:min-h-[115px] rounded-xl border border-border bg-surface-subtle p-3.5 sm:p-4 text-sm sm:text-base leading-relaxed font-medium transition-all focus-within:border-primary/50 focus-within:bg-surface shadow-inner flex flex-col justify-between"
           aria-label="Assembled sign transcript"
         >
           {transcript ? (
@@ -164,7 +164,7 @@ export default function TranscriptPanel({
               <span className="inline-block w-1.5 h-4 ml-1 bg-primary animate-pulse align-middle" />
             </p>
           ) : (
-            <p className="text-slate-400 text-xs sm:text-sm italic select-none">
+            <p className="text-muted text-xs sm:text-sm italic select-none">
               Your recognized signs will appear here and assemble into words.
               Hold each gesture steadily to build sentences.
             </p>
@@ -192,7 +192,7 @@ export default function TranscriptPanel({
           <div className="flex items-center gap-1.5">
             <button
               onClick={onAddSpace}
-              className="flex items-center gap-1 rounded-xl border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-secondary hover:text-foreground hover:bg-slate-50 transition-colors shadow-2xs"
+              className="flex items-center gap-1 rounded-xl border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-secondary hover:text-foreground hover:bg-surface-hover transition-colors shadow-2xs"
               title="Add Space"
             >
               <Space className="h-3.5 w-3.5" />
@@ -202,7 +202,7 @@ export default function TranscriptPanel({
             <button
               onClick={onBackspace}
               disabled={!transcript}
-              className="flex items-center gap-1 rounded-xl border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-secondary hover:text-foreground hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors shadow-2xs"
+              className="flex items-center gap-1 rounded-xl border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-secondary hover:text-foreground hover:bg-surface-hover disabled:opacity-40 disabled:pointer-events-none transition-colors shadow-2xs"
               title="Backspace"
             >
               <Delete className="h-3.5 w-3.5" />
@@ -212,7 +212,7 @@ export default function TranscriptPanel({
             <button
               onClick={onUndo}
               disabled={!canUndo}
-              className="flex items-center gap-1 rounded-xl border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-secondary hover:text-foreground hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors shadow-2xs"
+              className="flex items-center gap-1 rounded-xl border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-secondary hover:text-foreground hover:bg-surface-hover disabled:opacity-40 disabled:pointer-events-none transition-colors shadow-2xs"
               title="Undo last edit"
             >
               <RotateCcw className="h-3.5 w-3.5" />
@@ -236,7 +236,7 @@ export default function TranscriptPanel({
             className={`flex items-center gap-1.5 rounded-xl px-3 py-1 text-xs font-bold transition-all shadow-xs ${
               copyConfirmed
                 ? "bg-success text-white"
-                : "border border-border bg-surface text-secondary hover:text-foreground hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none"
+                : "border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover disabled:opacity-40 disabled:pointer-events-none"
             }`}
           >
             {copyConfirmed ? (
@@ -250,7 +250,7 @@ export default function TranscriptPanel({
       </div>
 
       {/* ── 3. Sign to Speech: Voice Synthesizer Controls ── */}
-      <div className="rounded-xl border border-slate-200 bg-slate-50/90 p-3.5 space-y-3">
+      <div className="rounded-xl border border-border bg-surface-subtle p-3.5 space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Volume2 className="h-4 w-4 text-teal" />
@@ -265,14 +265,14 @@ export default function TranscriptPanel({
             className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-semibold transition-all shadow-2xs ${
               isVoiceOutputEnabled
                 ? "border-teal/40 bg-teal-soft text-teal-dark hover:bg-teal-soft/80"
-                : "border-border bg-white text-secondary hover:text-foreground"
+                : "border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover"
             }`}
             aria-pressed={isVoiceOutputEnabled}
           >
             {isVoiceOutputEnabled ? (
               <Volume2 className="h-3.5 w-3.5 text-teal" />
             ) : (
-              <VolumeX className="h-3.5 w-3.5 text-slate-400" />
+              <VolumeX className="h-3.5 w-3.5 text-muted" />
             )}
             <span>{isVoiceOutputEnabled ? "Voice: ON" : "Voice: Muted"}</span>
           </button>
@@ -291,7 +291,7 @@ export default function TranscriptPanel({
 
           <button
             onClick={onStopSpeaking}
-            className="rounded-xl border border-border bg-white p-2 text-secondary hover:text-foreground hover:bg-slate-100 transition-colors shadow-2xs"
+            className="rounded-xl border border-border bg-surface p-2 text-secondary hover:text-foreground hover:bg-surface-hover transition-colors shadow-2xs"
             title="Stop Speech"
           >
             <VolumeX className="h-4 w-4 text-danger" />
@@ -299,7 +299,7 @@ export default function TranscriptPanel({
         </div>
 
         {/* Speech Speed Slider */}
-        <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between gap-3 text-xs">
+        <div className="pt-2 border-t border-border flex items-center justify-between gap-3 text-xs">
           <span className="text-[11px] font-semibold text-secondary flex items-center gap-1">
             <Sliders className="h-3 w-3 text-teal" />
             Speed: <strong className="text-foreground">{speechRate}x</strong>
@@ -311,12 +311,12 @@ export default function TranscriptPanel({
             step="0.1"
             value={speechRate}
             onChange={(e) => onChangeSpeechRate(Number(e.target.value))}
-            className="w-36 accent-teal cursor-pointer h-1.5 bg-slate-200 rounded-lg"
+            className="w-36 accent-teal cursor-pointer h-1.5 bg-border rounded-lg"
           />
         </div>
 
         {/* Quick Assistive Phrase Soundboard Accordion */}
-        <div className="pt-2 border-t border-slate-200/70">
+        <div className="pt-2 border-t border-border">
           <button
             onClick={() => setIsSoundboardOpen((o) => !o)}
             className="w-full flex items-center justify-between text-xs font-semibold text-secondary hover:text-foreground py-1"
@@ -340,13 +340,13 @@ export default function TranscriptPanel({
                   onClick={() =>
                     speakText(phrase.text, `Spoke: "${phrase.text}"`)
                   }
-                  className="rounded-lg border border-border bg-white p-2 text-left hover:border-teal hover:bg-teal-soft transition-all group shadow-2xs"
+                  className="rounded-lg border border-border bg-surface p-2 text-left hover:border-teal hover:bg-teal-soft transition-all group shadow-2xs"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-foreground group-hover:text-teal-dark">
                       {phrase.label}
                     </span>
-                    <Volume2 className="h-3 w-3 text-slate-300 group-hover:text-teal" />
+                    <Volume2 className="h-3 w-3 text-muted group-hover:text-teal" />
                   </div>
                   <p className="text-[10px] text-secondary truncate mt-0.5 font-normal">
                     "{phrase.text}"

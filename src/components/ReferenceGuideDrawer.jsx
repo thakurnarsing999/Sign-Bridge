@@ -83,7 +83,7 @@ export default function ReferenceGuideDrawer({
 
           <button
             onClick={onClose}
-            className="rounded-xl border border-border p-2 text-secondary hover:text-foreground hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="rounded-xl border border-border p-2 text-secondary hover:text-foreground hover:bg-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Close reference guide"
           >
             <X className="h-4.5 w-4.5" />
@@ -91,21 +91,21 @@ export default function ReferenceGuideDrawer({
         </div>
 
         {/* Search & Tabs Controls */}
-        <div className="border-b border-border p-4 bg-slate-50/70 space-y-3">
+        <div className="border-b border-border p-4 bg-surface-subtle space-y-3">
           {/* Search bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
             <input
               type="text"
               placeholder="Search sign, letter, or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-border bg-white pl-9 pr-3 py-2 text-xs sm:text-sm font-medium text-foreground placeholder:text-slate-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+              className="w-full rounded-xl border border-border bg-surface pl-9 pr-3 py-2 text-xs sm:text-sm font-medium text-foreground placeholder:text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
             />
           </div>
 
           {/* Segmented Mode Tabs */}
-          <div className="flex items-center gap-1 rounded-xl border border-border bg-white p-1">
+          <div className="flex items-center gap-1 rounded-xl border border-border bg-surface p-1">
             <button
               onClick={() => setActiveTab("alphabets")}
               className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-1.5 text-xs font-bold transition-all ${
@@ -137,7 +137,7 @@ export default function ReferenceGuideDrawer({
           {activeTab === "alphabets" && (
             <>
               {filteredAlphabets.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 text-xs">
+                <div className="p-8 text-center text-muted text-xs">
                   No alphabet signs match "{searchQuery}"
                 </div>
               ) : (
@@ -149,7 +149,7 @@ export default function ReferenceGuideDrawer({
                       className={`rounded-xl border p-3 transition-all ${
                         isActive
                           ? "border-teal bg-teal-soft shadow-xs ring-1 ring-teal"
-                          : "border-border bg-white hover:border-slate-300"
+                          : "border-border bg-surface hover:border-border-hover"
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -158,7 +158,7 @@ export default function ReferenceGuideDrawer({
                             className={`flex h-9 w-9 items-center justify-center rounded-xl font-mono text-base font-black ${
                               isActive
                                 ? "bg-teal text-white shadow-xs"
-                                : "bg-slate-100 text-slate-800"
+                                : "bg-surface-subtle text-foreground"
                             }`}
                           >
                             {item.letter}
@@ -181,7 +181,7 @@ export default function ReferenceGuideDrawer({
                             onClose();
                             onPracticeSign(item.letter, "alphabets");
                           }}
-                          className="flex items-center gap-1 rounded-lg border border-border bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-secondary hover:text-foreground hover:bg-slate-100 transition-colors"
+                          className="flex items-center gap-1 rounded-lg border border-border bg-surface-subtle px-2.5 py-1 text-[11px] font-semibold text-secondary hover:text-foreground hover:bg-surface-hover transition-colors"
                           title={`Practice sign for ${item.letter}`}
                         >
                           <GraduationCap className="h-3 w-3 text-teal" />
@@ -207,7 +207,7 @@ export default function ReferenceGuideDrawer({
           {activeTab === "digits" && (
             <>
               {filteredDigits.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 text-xs">
+                <div className="p-8 text-center text-muted text-xs">
                   No digit signs match "{searchQuery}"
                 </div>
               ) : (
@@ -219,7 +219,7 @@ export default function ReferenceGuideDrawer({
                       className={`rounded-xl border p-3 transition-all ${
                         isActive
                           ? "border-teal bg-teal-soft shadow-xs ring-1 ring-teal"
-                          : "border-border bg-white hover:border-slate-300"
+                          : "border-border bg-surface hover:border-border-hover"
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -228,7 +228,7 @@ export default function ReferenceGuideDrawer({
                             className={`flex h-9 w-9 items-center justify-center rounded-xl font-mono text-base font-black ${
                               isActive
                                 ? "bg-teal text-white shadow-xs"
-                                : "bg-slate-100 text-slate-800"
+                                : "bg-surface-subtle text-foreground"
                             }`}
                           >
                             {item.digit}
@@ -252,7 +252,7 @@ export default function ReferenceGuideDrawer({
                             onClose();
                             onPracticeSign(item.digit, "digits");
                           }}
-                          className="flex items-center gap-1 rounded-lg border border-border bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-secondary hover:text-foreground hover:bg-slate-100 transition-colors"
+                          className="flex items-center gap-1 rounded-lg border border-border bg-surface-subtle px-2.5 py-1 text-[11px] font-semibold text-secondary hover:text-foreground hover:bg-surface-hover transition-colors"
                           title={`Practice sign for ${item.digit}`}
                         >
                           <GraduationCap className="h-3 w-3 text-teal" />
@@ -277,7 +277,7 @@ export default function ReferenceGuideDrawer({
         </div>
 
         {/* Drawer Footer */}
-        <div className="border-t border-border p-3.5 bg-slate-50 text-center">
+        <div className="border-t border-border p-3.5 bg-surface-subtle text-center">
           <p className="text-[11px] text-secondary">
             Indian Sign Language (ISL) Fingerspelling Standard
           </p>

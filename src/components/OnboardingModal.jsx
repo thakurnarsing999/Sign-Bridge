@@ -52,7 +52,7 @@ export default function OnboardingModal({ isOpen, onClose }) {
 
           <button
             onClick={onClose}
-            className="rounded-xl border border-border p-1.5 text-secondary hover:text-foreground hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="rounded-xl border border-border p-1.5 text-secondary hover:text-foreground hover:bg-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Close guide"
           >
             <X className="h-4.5 w-4.5" />
@@ -61,7 +61,7 @@ export default function OnboardingModal({ isOpen, onClose }) {
 
         {/* 4 User-Centric Benefits / Core Flows */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-          <div className="rounded-xl border border-border bg-slate-50/80 p-3.5 space-y-1.5">
+          <div className="rounded-xl border border-border bg-surface-subtle p-3.5 space-y-1.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-soft text-primary">
               <Hand className="h-4 w-4" />
             </div>
@@ -74,7 +74,7 @@ export default function OnboardingModal({ isOpen, onClose }) {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-slate-50/80 p-3.5 space-y-1.5">
+          <div className="rounded-xl border border-border bg-surface-subtle p-3.5 space-y-1.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-soft text-teal">
               <MessageSquare className="h-4 w-4" />
             </div>
@@ -87,8 +87,8 @@ export default function OnboardingModal({ isOpen, onClose }) {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-slate-50/80 p-3.5 space-y-1.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-success">
+          <div className="rounded-xl border border-border bg-surface-subtle p-3.5 space-y-1.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-success">
               <ShieldCheck className="h-4 w-4" />
             </div>
             <h3 className="text-xs font-bold text-foreground">
@@ -100,8 +100,8 @@ export default function OnboardingModal({ isOpen, onClose }) {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-slate-50/80 p-3.5 space-y-1.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+          <div className="rounded-xl border border-border bg-surface-subtle p-3.5 space-y-1.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
               <Volume2 className="h-4 w-4" />
             </div>
             <h3 className="text-xs font-bold text-foreground">
@@ -115,32 +115,32 @@ export default function OnboardingModal({ isOpen, onClose }) {
         </div>
 
         {/* Keyboard Shortcuts Cheatsheet */}
-        <div className="rounded-xl border border-border bg-slate-50 p-3 text-xs text-secondary">
+        <div className="rounded-xl border border-border bg-surface-subtle p-3 text-xs text-secondary">
           <div className="flex items-center gap-2 mb-2 font-bold text-foreground">
             <Keyboard className="h-4 w-4 text-primary" />
             <span>Helpful Keyboard Shortcuts</span>
           </div>
           <div className="grid grid-cols-2 gap-2 text-[11px]">
             <div>
-              <kbd className="bg-white border px-1.5 py-0.5 rounded font-mono font-bold text-slate-700">
+              <kbd className="bg-surface border border-border px-1.5 py-0.5 rounded font-mono font-bold text-foreground">
                 A
               </kbd>{" "}
               : Alphabet Mode
             </div>
             <div>
-              <kbd className="bg-white border px-1.5 py-0.5 rounded font-mono font-bold text-slate-700">
+              <kbd className="bg-surface border border-border px-1.5 py-0.5 rounded font-mono font-bold text-foreground">
                 N
               </kbd>{" "}
               : Number Mode
             </div>
             <div>
-              <kbd className="bg-white border px-1.5 py-0.5 rounded font-mono font-bold text-slate-700">
+              <kbd className="bg-surface border border-border px-1.5 py-0.5 rounded font-mono font-bold text-foreground">
                 C
               </kbd>{" "}
               : Connect / Stop Camera
             </div>
             <div>
-              <kbd className="bg-white border px-1.5 py-0.5 rounded font-mono font-bold text-slate-700">
+              <kbd className="bg-surface border border-border px-1.5 py-0.5 rounded font-mono font-bold text-foreground">
                 Esc
               </kbd>{" "}
               : Close Drawer / Dialog

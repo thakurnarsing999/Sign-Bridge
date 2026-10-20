@@ -27,6 +27,45 @@ export default function App() {
     return localStorage.getItem("signbridge_mode") || "alphabets";
   });
 
+  // Accessibility Live Region Announcement
+  const [announcement, setAnnouncement] = useState("");
+
+  // Color Theme: 'light' | 'dark' (Persisted in localStorage with system preference fallback)
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("signbridge_theme");
+    if (saved) return saved;
+    return typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
+
+  // Synchronize Theme class and attribute on root element
+  useEffect(() => {
+    localStorage.setItem("signbridge_theme", theme);
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+      root.setAttribute("data-theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      root.setAttribute("data-theme", "light");
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === "dark" ? "light" : "dark";
+      setAnnouncement(`Switched to ${next} theme mode`);
+      return next;
+    });
+  }, [setAnnouncement]);
+
+  const handleChangeTheme = useCallback((newTheme) => {
+    setTheme(newTheme);
+    setAnnouncement(`Switched to ${newTheme} theme mode`);
+  }, [setAnnouncement]);
+
   // Camera & Calibration State
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [isCalibrating, setIsCalibrating] = useState(false);
@@ -64,9 +103,6 @@ export default function App() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
-
-  // Accessibility Live Region Announcement
-  const [announcement, setAnnouncement] = useState("");
 
   // DOM Refs & Model Refs
   const videoRef = useRef(null);
@@ -329,15 +365,19 @@ export default function App() {
   }, []);
 
   const handleAddSpace = useCallback(() => {
+    let didAdd = false;
     setTranscript((prev) => {
       if (!prev.endsWith(" ")) {
         setTranscriptHistory((hist) => [...hist.slice(-20), prev]);
-        setAnnouncement("Space added");
+        didAdd = true;
         return prev + " ";
       }
       return prev;
     });
-  }, []);
+    if (didAdd) {
+      setAnnouncement("Space added");
+    }
+  }, [setAnnouncement]);
 
   const handleBackspace = () => {
     setTranscript((prev) => {
@@ -572,7 +612,12 @@ export default function App() {
       </div>
 
       {/* Top Navbar */}
-      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Header
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
 
       {/* Main Container */}
       <main className="flex-1 pb-24 sm:pb-12">
@@ -603,7 +648,7 @@ export default function App() {
                       {isModelLoaded ? "Model Ready" : "Loading..."}
                     </strong>
                   </span>
-                  <span className="text-slate-300">|</span>
+                  <span className="text-border">|</span>
                   <span>
                     Output:{" "}
                     <strong className="text-foreground">
@@ -685,6 +730,8 @@ export default function App() {
         speechRate={speechRate}
         onChangeSpeechRate={handleUpdateSpeechRate}
         onResetDefaults={handleResetDefaults}
+        theme={theme}
+        onChangeTheme={handleChangeTheme}
       />
 
       {/* How SignBridge Works Modal */}

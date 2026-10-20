@@ -75,7 +75,7 @@ export default function LandingPage({ onNavigate }) {
       <section className="max-w-4xl mx-auto px-4">
         <div
           onClick={() => onNavigate("studio")}
-          className="group cursor-pointer rounded-3xl border border-border bg-gradient-to-br from-white via-slate-50 to-teal-soft/30 p-7 sm:p-10 shadow-xs hover:shadow-md hover:border-primary/40 transition-all text-left relative overflow-hidden"
+          className="group cursor-pointer rounded-3xl border border-border bg-gradient-to-br from-surface via-surface-subtle to-teal-soft/30 p-7 sm:p-10 shadow-xs hover:shadow-md hover:border-primary/40 transition-all text-left relative overflow-hidden"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-3">
@@ -106,21 +106,21 @@ export default function LandingPage({ onNavigate }) {
           </p>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-secondary font-medium">
-            <div className="rounded-xl border border-slate-200/90 bg-white p-3 flex items-start gap-2 shadow-2xs">
+            <div className="rounded-xl border border-border bg-surface p-3 flex items-start gap-2 shadow-2xs">
               <CheckCircle2 className="h-4 w-4 text-teal shrink-0 mt-0.5" />
               <span>
                 <strong>Sentence Builder:</strong> Assembles letters into words
                 with 1.5s auto-space
               </span>
             </div>
-            <div className="rounded-xl border border-slate-200/90 bg-white p-3 flex items-start gap-2 shadow-2xs">
+            <div className="rounded-xl border border-border bg-surface p-3 flex items-start gap-2 shadow-2xs">
               <CheckCircle2 className="h-4 w-4 text-teal shrink-0 mt-0.5" />
               <span>
                 <strong>Voice Output:</strong> Reads signs and full sentences
                 aloud with speed tuning
               </span>
             </div>
-            <div className="rounded-xl border border-slate-200/90 bg-white p-3 flex items-start gap-2 shadow-2xs">
+            <div className="rounded-xl border border-border bg-surface p-3 flex items-start gap-2 shadow-2xs">
               <CheckCircle2 className="h-4 w-4 text-teal shrink-0 mt-0.5" />
               <span>
                 <strong>Quick Soundboard:</strong> Instant one-tap speech for
@@ -132,14 +132,14 @@ export default function LandingPage({ onNavigate }) {
       </section>
 
       {/* ── How It Works 3-Step Flow ── */}
-      <section className="max-w-4xl mx-auto px-4 bg-slate-100/70 border border-slate-200/90 rounded-2xl p-6 sm:p-8">
+      <section className="max-w-4xl mx-auto px-4 bg-surface-subtle border border-border rounded-2xl p-6 sm:p-8">
         <h3 className="text-center text-lg sm:text-xl font-bold text-foreground mb-6">
           How SignBridge Works in 3 Simple Steps
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           <div className="flex flex-col items-center">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white border border-slate-200 text-primary font-black text-sm shadow-xs mb-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-surface border border-border text-primary font-black text-sm shadow-xs mb-3">
               1
             </div>
             <h4 className="text-xs sm:text-sm font-bold text-foreground">
@@ -152,7 +152,7 @@ export default function LandingPage({ onNavigate }) {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white border border-slate-200 text-teal font-black text-sm shadow-xs mb-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-surface border border-border text-teal font-black text-sm shadow-xs mb-3">
               2
             </div>
             <h4 className="text-xs sm:text-sm font-bold text-foreground">
@@ -165,7 +165,7 @@ export default function LandingPage({ onNavigate }) {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white border border-slate-200 text-success font-black text-sm shadow-xs mb-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-surface border border-border text-success font-black text-sm shadow-xs mb-3">
               3
             </div>
             <h4 className="text-xs sm:text-sm font-bold text-foreground">

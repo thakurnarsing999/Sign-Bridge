@@ -14,7 +14,7 @@ export default function SpeechToSignPanel() {
               <h2 className="text-base font-bold text-foreground">
                 Speech to Sign
               </h2>
-              <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-2.5 py-0.5 text-[11px] font-bold text-amber-700">
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-[11px] font-bold text-amber-600 dark:text-amber-400">
                 <Clock className="h-3 w-3" />
                 In Progress
               </span>
@@ -28,7 +28,7 @@ export default function SpeechToSignPanel() {
 
       {/* Blank Workspace Card */}
       <div className="rounded-2xl border border-border bg-surface p-12 sm:p-20 shadow-xs flex flex-col items-center justify-center text-center min-h-[360px]">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 mb-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-subtle text-muted mb-3">
           <MessageSquare className="h-6 w-6" />
         </div>
         <h3 className="text-sm font-bold text-foreground">In Progress</h3>

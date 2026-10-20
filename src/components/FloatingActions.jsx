@@ -73,12 +73,12 @@ export default function FloatingActions({
               onOpenSettings();
               setIsOpen(false);
             }}
-            className="flex flex-col items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl border border-border bg-white text-secondary hover:text-foreground hover:bg-slate-100 transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex flex-col items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Detection threshold settings"
             title="Settings"
           >
             <Settings className="h-4.5 w-4.5" />
-            <span className="text-[9px] font-medium mt-0.5 text-slate-500 leading-none">
+            <span className="text-[9px] font-medium mt-0.5 text-muted leading-none">
               Settings
             </span>
           </button>
@@ -90,12 +90,12 @@ export default function FloatingActions({
               onOpenOnboarding();
               setIsOpen(false);
             }}
-            className="flex flex-col items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl border border-border bg-white text-secondary hover:text-foreground hover:bg-slate-100 transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex flex-col items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover transition-colors shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="How SignBridge works"
             title="How SignBridge works"
           >
             <HelpCircle className="h-4.5 w-4.5" />
-            <span className="text-[9px] font-medium mt-0.5 text-slate-500 leading-none">
+            <span className="text-[9px] font-medium mt-0.5 text-muted leading-none">
               Help
             </span>
           </button>
